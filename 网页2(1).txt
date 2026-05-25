@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>鲁迅女性空间教学 | 女性人物地图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Apple 极简风 + 毛玻璃质感 */
+        :root {
+            --bg-gradient-start: #f2f2f5;
+            --bg-gradient-end: #e9ecef;
+            --glass-bg: rgba(255, 255, 255, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text-primary: #1c1c1e;
+            --text-secondary: #6c6c70;
+            --accent-black: #000000;
+            --accent-gray: #8e8e93;
+            --border-light: rgba(0, 0, 0, 0.06);
+            --hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-primary);
+            min-height: 100vh;
+            backdrop-filter: blur(0px);
+        }
+
+        /* 毛玻璃导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 200;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .navbar-brand {
+            font-size: 1.35rem;
+            font-weight: 590;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #1a1a1a, #3a3a3a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 480;
+            color: var(--text-secondary);
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .nav-btn:hover { color: #000; }
+        .nav-btn.active {
+            color: #000;
+            font-weight: 500;
+        }
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #000;
+            border-radius: 2px;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 40px 100px;
+            min-height: 100vh;
+        }
+
+        .view-section {
+            display: none;
+            animation: fadeInUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .view-section.active { display: block; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========= 单张轮播图（大卡片，减少留白） ========= */
+        .hero-carousel {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 48px;
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+            padding: 2rem 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .carousel-main {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 520px;
+        }
+        .carousel-single-card {
+            width: 100%;
+            max-width: 580px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.65);
+            backdrop-filter: blur(24px);
+            border-radius: 48px;
+            padding: 2rem 2rem 2.2rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.8);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .carousel-single-card:hover { transform: scale(1.01); background: rgba(255,255,255,0.8);}
+        .carousel-avatar-lg {
+            width: 140px;
+            height: 140px;
+            border-radius: 140px;
+            object-fit: cover;
+            margin: 0 auto 1.2rem;
+            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.2);
+            border: 2px solid white;
+        }
+        .carousel-name-lg {
+            font-size: 2rem;
+            font-weight: 620;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.4rem;
+        }
+        .carousel-source-lg {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+        }
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            border: none;
+            color: #1c1c1e;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 12;
+        }
+        .carousel-arrow:hover { background: white; transform: translateY(-50%) scale(1.05);}
+        .carousel-arrow-left { left: 10px; }
+        .carousel-arrow-right { right: 10px; }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 8px;
+            background: #c6c6c8;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .dot.active {
+            width: 24px;
+            background: #000;
+        }
+
+        /* 物理空间 & 性别空间 毛玻璃卡片 */
+        .space-view {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+        .map-container {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            border-radius: 32px;
+            overflow: hidden;
+            height: 460px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.6);
+            backdrop-filter: blur(2px);
+        }
+        .map-title {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(12px);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 590;
+            z-index: 8;
+        }
+        .map-marker {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border: 2px solid #000;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        .map-marker:hover { width: 28px; height: 28px; background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,0.1);}
+        .map-popup {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 16px 20px;
+            min-width: 200px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.8);
+            z-index: 20;
+            display: none;
+        }
+        .map-popup.show { display: block; }
+        .popup-item {
+            padding: 8px 0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border-bottom: 0.5px solid #e9e9ef;
+        }
+        .popup-item:last-child { border: none;}
+
+        /* 性别空间三卡片 */
+        .gender-view {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .gender-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 36px;
+            padding: 24px 20px;
+            border: 1px solid rgba(255,255,255,0.7);
+            transition: all 0.2s;
+        }
+        .gender-card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .gender-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        .gender-item {
+            text-align: center;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .gender-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 70px;
+            object-fit: cover;
+            background: #e9e9ef;
+            margin-bottom: 8px;
+        }
+
+        /* 详情页 */
+        .detail-view {
+            background: rgba(255,255,255,0.65);
+            backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 32px 40px;
+            border: 1px solid white;
+        }
+        .detail-back {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 28px;
+            cursor: pointer;
+            color: #007aff;
+        }
+
+        /* AI 模态框 毛玻璃 */
+        .modal-overlay {
+            position: fixed;
+            top:0;left:0;width:100%;height:100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(40px);
+            width: 560px;
+            max-width: 90%;
+            border-radius: 48px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        .chat-container {
+            height: 360px;
+            overflow-y: auto;
+            padding: 20px;
+            background: rgba(248,248,250,0.5);
+        }
+        .chat-bubble {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 28px;
+            margin-bottom: 12px;
+            max-width: 85%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .chat-message.user .chat-bubble { background: #000; color: white; margin-left: auto; }
+        .chat-input-area {
+            display: flex;
+            padding: 16px;
+            gap: 12px;
+            background: rgba(255,255,255,0.5);
+        }
+        .chat-input {
+            flex:1;
+            border-radius: 40px;
+            border: 0.5px solid #ddd;
+            padding: 12px 18px;
+            background: white;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left:0;
+            width:100%;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            height: 76px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .ai-btn {
+            background: #000;
+            color: white;
+            border-radius: 40px;
+            padding: 10px 32px;
+            border: none;
+            font-weight: 500;
+        }
+        @media (max-width: 860px) {
+            .space-view { grid-template-columns: 1fr; }
+            .gender-view { grid-template-columns: 1fr; }
+            .main-content { padding: 100px 20px 100px; }
+        }
+
+        /* 开屏动画 */
+        .splash-screen {
+            position: fixed; inset:0; background: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 9999; transition: opacity 0.5s;
+        }
+        .splash-circle { width: 60px; height:60px; border:1px solid #000; border-radius: 50%; animation: expand 1.2s forwards; }
+        @keyframes expand { 0%{width:0;height:0;opacity:1} 80%{width:240px;height:240px;opacity:0.6} 100%{width:320px;height:320px;opacity:0}}
+        .splash-text { margin-top: 24px; font-size: 1.5rem; font-weight: 300; animation: fadeText 1.2s forwards; }
+        @keyframes fadeText { 0%{opacity:0} 30%{opacity:1} 80%{opacity:1} 100%{opacity:0}}
+        .splash-screen.hidden { opacity:0; pointer-events: none; }
+    </style>
+</head>
+<body>
+<div class="splash-screen" id="splash"><div class="splash-circle"></div><div class="splash-text">鲁迅 · 女性 · 空间</div></div>
+
+<nav class="navbar">
+    <div class="navbar-brand">鲁迅女性空间教学地图</div>
+    <div class="navbar-nav">
+        <button class="nav-btn active" data-view="home">返回首页</button>
+        <button class="nav-btn" data-view="physical">物理空间</button>
+        <button class="nav-btn" data-view="gender">性别权力空间</button>
+    </div>
+</nav>
+
+<main class="main-content">
+    <!-- 首页轮播单张大卡片 -->
+    <section class="view-section active" id="homeView">
+        <div class="hero-carousel">
+            <div class="carousel-main">
+                <button class="carousel-arrow carousel-arrow-left" id="carouselPrev">‹</button>
+                <div id="singleCarouselCard" class="carousel-single-card"></div>
+                <button class="carousel-arrow carousel-arrow-right" id="carouselNext">›</button>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+    </section>
+
+    <!-- 物理空间视图 -->
+    <section class="view-section" id="physicalView"><div class="space-view" id="physicalMapContainer"></div></section>
+    <!-- 性别权力空间视图 -->
+    <section class="view-section" id="genderView"><div class="gender-view" id="genderGrid"></div></section>
+    <!-- 人物详情页 -->
+    <section class="view-section" id="detailView"><div class="detail-view"><button class="detail-back" id="detailBack">← 返回</button><div id="detailContent"></div></div></section>
+</main>
+<footer class="footer"><button class="ai-btn" id="aiBtn">AI 智能问答</button></footer>
+<div class="modal-overlay" id="modalOverlay"><div class="modal-content"><div class="modal-header" style="padding:20px;display:flex;justify-content:space-between"><span style="font-weight:600">AI 教学助手</span><button id="modalClose" style="background:none;border:none;font-size:24px;">&times;</button></div><div class="chat-container" id="chatContainer"><div class="chat-message ai"><div class="chat-bubble">您好！我是AI教学助手，可为您解答鲁迅笔下女性人物、空间分类等问题。</div></div></div><div class="chat-input-area"><input type="text" id="chatInput" class="chat-input" placeholder="问：祥林嫂为何是禁锢者？"><button id="chatSend" class="ai-btn" style="background:#000;">发送</button></div></div></div>
+
+<script>
+    // --------------------------------------------------------------
+    // 完整人物数据（基于集成版本3 + 网页1融合，全部字段显式定义）
+    // 共计16位女性人物，涵盖简介、文献、图片、出处、分类等
+    const characterData = {
+        "祥林嫂": { img: "https://s41.ax1x.com/2026/03/09/peiowJU.png", intro: "被礼教咀嚼殆尽的精神祭品，连续丧夫失子的底层劳动妇女。初到鲁镇以沉默劳动换取生存，被婆婆绑架改嫁时以死抗争，失子后寻求情感共鸣却被乡邻咀嚼成渣，捐门槛后仍被喝止触碰祭品，最终在祝福夜孤独死去。她的悲剧是夫权、族权、神权合力围剿的结果。", journal: ["[1]卢建红.鲁迅作品中母性受难的意义[J].南京师范大学文学院学报,2015","[2]阎浩岗.鲁迅的亲情观及其在小说创作中的表现[J].中国现代文学研究丛刊,2013","[3]彭小燕.“虚无”四重奏——重读《祝福》[J].中国现代文学研究丛刊,2012","[4]张莉.重读《祝福》：通往更高级的小说世界[J].小说评论,2021","[5]李国华.“末路的人的苦恼”——鲁迅《祝福》释读[J].南方文坛,2024"], source: "《祝福》", category: "禁锢者", spaceType: "virtual", location: "鲁镇" },
+        "单四嫂子": { img: "https://s41.ax1x.com/2026/03/09/peiodiT.png", intro: "青年守寡的底层劳动妇女，依靠纺纱独自抚养三岁儿子宝儿。为救子耗尽积蓄，儿子死后陷入“太静、太大、太空”的绝望。她的痛苦无人理解，是鲁迅笔下孤独者的形态。", journal: ["[1]龙永干.邻里伦理与“自然之道”的隐喻[J].鲁迅研究月刊,2022","[2]管冠生.鲁迅《明天》的精神分析学解读[J].太原学院学报,2019","[3]符杰祥.“重压”如何“曲笔”——《明天》的古风中国与叙事变奏[J].鲁迅研究月刊,2025"], source: "《明天》", category: "禁锢者", spaceType: "virtual", location: "故乡" },
+        "夏四奶奶": { img: "https://s41.ax1x.com/2026/03/09/peioUoV.png", intro: "革命者夏瑜的母亲，贫穷的封建妇女。既爱儿子又无法理解其革命行为，因社会偏见感到羞耻，坟上的花环成为她希望的寄托。展现革命与传统之间的冲突。", journal: ["[1]刘启恕.鲁迅《药》中夏瑜母亲的形象[J].郧阳师专学报,1985","[2]李晨.民众、民族-国家与牺牲者——鲁迅的《药》及其他[J].文艺研究,2024"], source: "《药》", category: "禁锢者", spaceType: "virtual", location: "首阳山" },
+        "爱姑": { img: "https://s41.ax1x.com/2026/03/09/peio0WF.png", intro: "最具原始反抗精神的女性，因丈夫出轨要求离婚，坚信“公道”，最终在七大人的权力仪式前投降。她的失败揭示了旧社会公道的虚伪。", journal: ["[1]黄子平.由爱姑的“钩刀样的脚”论定《离婚》的主旨[J].上海文化,2018","[2]吕周聚.论爱姑的婚姻困境与无效反抗[J].惠州学院学报,2024","[3]韦佳烨.“立人”视野下《离婚》中爱姑的形象探析[J].长江小说鉴赏,2025"], source: "《离婚》", category: "流动者", spaceType: "virtual", location: "庞庄" },
+        "阿长": { img: "https://s41.ax1x.com/2026/03/09/peioBz4.png", intro: "鲁迅儿时的保姆，粗俗迷信却质朴深情，为孩子买来《山海经》，展现旧式劳动妇女未被教化的爱与善意。", journal: ["[1]宗慧坚.《阿长与〈山海经〉》阿长人物形象解读[J].语文建设,2017","[2]朱崇科.《阿长与〈山海经〉》中的三个鲁迅[J].绍兴文理学院学报,2020"], source: "《朝花夕拾》", category: "流动者", spaceType: "virtual", location: "故乡" },
+        "杨二嫂": { img: "https://s41.ax1x.com/2026/03/09/peiooyd.png", intro: "从“豆腐西施”异化为“细脚伶仃的圆规”，尖酸刻薄，充满物质焦虑。她的变化折射小市民在动荡社会中的生存扭曲。", journal: ["[1]陈露.尖酸刻薄“杨二嫂”？——《故乡》人物杨二嫂之再解读[J].名作欣赏,2023","[2]张西爱.论《故乡》中豆腐西施杨二嫂的时代性[J].琼州学院学报,2007"], source: "《故乡》", category: "禁锢者", spaceType: "virtual", location: "故乡" },
+        "子君": { img: "https://s41.ax1x.com/2026/03/09/peiobwt.png", intro: "《伤逝》中觉醒的新女性，勇敢说出“我是我自己的”，却因经济依附与社会孤立最终被抛弃。展现了“娜拉走后怎样”的困境。", journal: ["[1]贾振勇.娜拉出走:现代性的女性神话[J].鲁迅研究月刊,2001","[2]李今.析《伤逝》的反讽性质[J].文学评论,2010","[3]姜异新.爱情的诚与谩——《伤逝》细读[J].文艺争鸣,2024"], source: "《伤逝》", category: "流动者", spaceType: "virtual", location: "吉兆胡同" },
+        "嫦娥": { img: "https://s41.ax1x.com/2026/03/10/peFQRMV.png", intro: "被现实消磨神性的妻子，因厌倦贫困生活偷吃灵药奔月，鲁迅借此解构神话，揭示理想消散后的亲密关系冰冷现实。", journal: ["[1]王思萌.《奔月》中后羿与嫦娥形象分析[J].今古文创,2021","[2]容苑.从《奔月》中的嫦娥形象探索时代女性的命运[J].阿坝师范学院学报,2019"], source: "《奔月》", category: "流动者", spaceType: "virtual", location: "后羿居所" },
+        "阿金姐": { img: "https://s41.ax1x.com/2026/03/10/peFQfqU.png", intro: "《采薇》中的婢女，用“普天之下，莫非王土”的强权逻辑解构伯夷叔齐道德神话，代表世俗舆论绞杀崇高的暴力。", journal: ["[1]祝宇红.“王道”“天命”的历史批判和现实讽喻——重读鲁迅《采薇》[J].文艺争鸣,2016","[2]王童.“冷”而有力的女强人——论《故事新编》中的女性形象[J].上海鲁迅研究,2013"], source: "《采薇》", category: "反叛者", spaceType: "virtual", location: "首阳山" },
+        "鲁瑞": { img: "https://s41.ax1x.com/2026/03/10/peFtHKA.png", intro: "鲁迅母亲，传统女性，以自修读书。家道中落后尽力托举儿子，虽不舍却支持鲁迅外出求学。", journal: ["[1]徐保卫.鲁迅心灵中母亲的形象:从新台门到安桥头[J].汉中师院学报,1992","[2]张显凤.母亲的缺席与隐秘的伤痛——再读《朝花夕拾》[J].鲁迅研究月刊,2013"], source: "历史人物/散文", category: "禁锢者", spaceType: "real", location: "绍兴" },
+        "许广平": { img: "https://s41.ax1x.com/2026/03/10/peFNeGF.png", intro: "鲁迅伴侣与战友，现代作家。投身学生运动，与鲁迅通信相恋，后协助鲁迅文稿事业。鲁迅逝世后保护手稿，主持编纂《鲁迅全集》。", journal: ["[1]杭苏红.无根之“群”:民国新女性的精神困境[J].社会学研究,2015","[2]王彬彬.许广平在改写鲁迅中的作用与苦衷[J].文艺争鸣,2001","[3]付祥喜.中国现代作家书信的“公”与“私”[J].文学评论,2022"], source: "历史人物/书信", category: "反叛者", spaceType: "real", location: "上海" },
+        "朱安": { img: "https://s41.ax1x.com/2026/03/10/peFNQq1.png", intro: "鲁迅原配夫人，旧式女性。一生侍奉鲁迅母亲，恪守妇道，精神隔阂深，孤寂离世，旧时代女性悲剧缩影。", journal: ["[1]裘士雄.浅论鲁迅对中国传统婚姻的“妥协”与抗争[J].绍兴师专学报,1991","[2]孔慧怡.字里行间:朱安的一生[J].鲁迅研究月刊,2002"], source: "历史人物/散文", category: "禁锢者", spaceType: "real", location: "绍兴" },
+        "刘和珍": { img: "https://pic1.imgdb.cn/item/69aff69e6738cb8aa1296ecb.png", intro: "北京女师大学生，三一八惨案牺牲者。“始终微笑着”，鲁迅赞其“真的猛士”，是进步青年女性代表。", journal: ["[1]孙绍振.杂文式抒情:在曲折的逻辑中深化[J].语文建设,2010","[2]刘高峰.“点”与“线”的表现艺术[J].名作欣赏,2005","[3]汤天勇.关于“三一八”事件的三种写法[J].中学语文教学,2022"], source: "历史人物/散文", category: "反叛者", spaceType: "real", location: "北京" },
+        "萧红": { img: "https://pic1.imgdb.cn/item/69aff6d76738cb8aa1296ef9.png", intro: "著名女作家，鲁迅晚年最亲近的青年作家之一。鲁迅为《生死场》作序，她写下《回忆鲁迅先生》，文风悲悯深沉。", journal: ["[1]季红真.鲁迅序言对《生死场》的经典定位之后[J].中国现代文学研究丛刊,2016","[2]秦林芳.鲁迅小说传统与萧红的小说创作[J].鲁迅研究月刊,2000","[3]林敏洁.鲁迅与萧红交往考察[J].新文学史料,2001"], source: "历史人物/散文", category: "反叛者", spaceType: "real", location: "上海" },
+        "杨荫榆": { img: "https://pic1.imgdb.cn/item/69aff6f86738cb8aa1296f1a.png", intro: "北女师大校长，因管理方式引发风潮，但抗战时期拒绝日军合作遭枪杀，展现气节。", journal: ["[1]陆建德.母亲、女校长、问罪学——关于杨荫榆事件的再思考[J].中国现代文学研究丛刊,2014","[2]娄岙菲.再论杨荫榆与女师大风潮[J].教育学报,2015"], source: "历史人物/书信", category: "反叛者", spaceType: "real", location: "北京" },
+        "凯绥·珂勒惠支": { img: "https://pic1.imgdb.cn/item/69aff7666738cb8aa1296f85.png", intro: "德国版画家，鲁迅推崇并引入中国。作品聚焦无产阶级苦难、母性坚韧，影响中国现代木刻运动。", journal: ["[1]王锡荣.鲁迅与史沫特莱及《凯绥·珂勒惠支版画选集》[J].鲁迅研究月刊,2021","[2]孙郁.在表现主义风潮里[J].鲁迅研究月刊,2020","[3]崔云伟.现实的·审美的·哲学的[J].鲁迅研究月刊,2006"], source: "历史人物/书信", category: "反叛者", spaceType: "real", location: "柏林" }
+    };
+
+    const charactersList = Object.keys(characterData);
+    // 地点映射（基于最新数据）
+    const locationMapping = {
+        "虚拟地点": { "古轩亭口": ["夏四奶奶"], "鲁镇": ["祥林嫂"], "庞庄": ["爱姑"], "故乡": ["单四嫂子","阿长","杨二嫂"], "吉兆胡同": ["子君"], "后羿居所": ["嫦娥"], "首阳山": ["夏四奶奶","阿金姐"] },
+        "现实地点": { "上海": ["许广平","萧红"], "绍兴": ["鲁瑞","朱安"], "北京": ["刘和珍","杨荫榆"], "柏林": ["凯绥·珂勒惠支"] }
+    };
+    const genderCategories = { "禁锢者": ["祥林嫂","单四嫂子","夏四奶奶","朱安","鲁瑞","杨二嫂"], "流动者": ["爱姑","子君","嫦娥","阿长"], "反叛者": ["刘和珍","阿金姐","许广平","萧红","杨荫榆","凯绥·珂勒惠支"] };
+
+    // ---------- 单张大卡片轮播 ----------
+    let carouselIdx = 0, autoInterval;
+    const updateCarousel = () => {
+        const name = charactersList[carouselIdx];
+        const ch = characterData[name];
+        const cardDiv = document.getElementById('singleCarouselCard');
+        cardDiv.innerHTML = `<img src="${ch.img}" class="carousel-avatar-lg" onerror="this.src='https://placehold.co/140x140?text=头像'"><div class="carousel-name-lg">${name}</div><div class="carousel-source-lg">${ch.source}</div><div style="font-size:0.85rem;color:#666;">点击查看详情</div>`;
+        cardDiv.onclick = () => showDetail(name);
+        document.querySelectorAll('.dot').forEach((dot,i)=>dot.classList.toggle('active',i===carouselIdx));
+    };
+    const nextSlide = () => { carouselIdx = (carouselIdx+1)%charactersList.length; updateCarousel(); };
+    const prevSlide = () => { carouselIdx = (carouselIdx-1+charactersList.length)%charactersList.length; updateCarousel(); };
+    function initCarousel(){
+        const container = document.getElementById('singleCarouselCard');
+        container.parentElement.style.position='relative';
+        const dotsDiv = document.getElementById('carouselDots');
+        dotsDiv.innerHTML = '';
+        charactersList.forEach((_,idx)=>{ let d=document.createElement('div'); d.className='dot'+(idx===0?' active':''); d.onclick=()=>{ carouselIdx=idx; updateCarousel(); }; dotsDiv.appendChild(d); });
+        updateCarousel();
+        if(autoInterval) clearInterval(autoInterval);
+        autoInterval = setInterval(nextSlide,5000);
+        document.getElementById('carouselPrev').onclick=()=>{ prevSlide(); resetAuto(); };
+        document.getElementById('carouselNext').onclick=()=>{ nextSlide(); resetAuto(); };
+        function resetAuto(){ clearInterval(autoInterval); autoInterval=setInterval(nextSlide,5000); }
+    }
+
+    // 物理空间地图生成（标记+弹窗）
+    function buildPhysicalMaps(){
+        const container = document.getElementById('physicalMapContainer');
+        container.innerHTML = `
+            <div class="map-container" id="virtualMap" style="background-image:url('https://pic1.imgdb.cn/item/69aff99f6738cb8aa129715e.png')"><div class="map-title">📖 虚拟人物地图</div></div>
+            <div class="map-container" id="realMap" style="background-image:url('https://pic1.imgdb.cn/item/69aff9f96738cb8aa12971b3.png')"><div class="map-title">🌍 现实人物地图</div></div>
+        `;
+        const vMap = document.getElementById('virtualMap'), rMap = document.getElementById('realMap');
+        const virtualMarkers = [{name:"古轩亭口",left:"21%",top:"35%"},{name:"鲁镇",left:"30%",top:"57%"},{name:"庞庄",left:"43.5%",top:"35%"},{name:"吉兆胡同",left:"62.5%",top:"30%"},{name:"后羿居所",left:"79%",top:"32%"},{name:"故乡",left:"47%",top:"50%"},{name:"首阳山",left:"72%",top:"51%"}];
+        const realMarkers = [{name:"上海",left:"32%",top:"59%"},{name:"绍兴",left:"44.5%",top:"35%"},{name:"北京",left:"65%",top:"63%"},{name:"柏林",left:"88%",top:"36%"}];
+        virtualMarkers.forEach(m=>addMarkerToMap(vMap,m,"虚拟地点"));
+        realMarkers.forEach(m=>addMarkerToMap(rMap,m,"现实地点"));
+    }
+    function addMarkerToMap(map,marker,mapType){
+        const markerDiv = document.createElement('div'); markerDiv.className='map-marker'; markerDiv.style.left=marker.left; markerDiv.style.top=marker.top;
+        const popup = document.createElement('div'); popup.className='map-popup';
+        const locChars = locationMapping[mapType][marker.name] || [];
+        popup.innerHTML = `<div style="font-weight:600;margin-bottom:8px;">${marker.name}</div>`+locChars.map(c=>`<div class="popup-item" data-name="${c}">${c} —— ${characterData[c]?.source||'作品'}</div>`).join('');
+        markerDiv.onclick=(e)=>{ e.stopPropagation(); document.querySelectorAll('.map-popup').forEach(p=>p.classList.remove('show')); popup.classList.add('show'); const rect=markerDiv.getBoundingClientRect(),mapRect=map.getBoundingClientRect(); popup.style.left=`${rect.left-mapRect.left+20}px`; popup.style.top=`${rect.top-mapRect.top-40}px`; };
+        popup.querySelectorAll('.popup-item').forEach(el=>{ el.addEventListener('click',()=>showDetail(el.dataset.name)); });
+        map.appendChild(markerDiv); map.appendChild(popup);
+    }
+    function buildGenderView(){
+        const grid = document.getElementById('genderGrid'); grid.innerHTML='';
+        // 修正标题显示：直接使用字符串，不再错误使用 [1] 索引
+        const categories = [
+            { key: '禁锢者', title: '私人空间的禁锢者' },
+            { key: '流动者', title: '私人与公共空间的流动者' },
+            { key: '反叛者', title: '公共空间的反叛者' }
+        ];
+        categories.forEach(cat => {
+            const card = document.createElement('div'); card.className='gender-card';
+            card.innerHTML = `<div class="gender-card-title">${cat.title}</div><div class="gender-grid" id="grid-${cat.key}"></div>`;
+            const gridInner = card.querySelector(`.gender-grid`);
+            (genderCategories[cat.key] || []).forEach(name => {
+                const ch = characterData[name];
+                const item = document.createElement('div'); item.className='gender-item';
+                item.innerHTML = `<img src="${ch.img}" class="gender-avatar" onerror="this.src='https://placehold.co/70x70'"><div>${name}</div>`;
+                item.onclick = () => showDetail(name);
+                gridInner.appendChild(item);
+            });
+            grid.appendChild(card);
+        });
+    }
+    function showDetail(name){
+        const ch = characterData[name];
+        const detailDiv = document.getElementById('detailContent');
+        detailDiv.innerHTML = `<div style="text-align:center;margin-bottom:24px;"><img src="${ch.img}" style="width:120px;height:120px;border-radius:60px;object-fit:cover;"><h2 style="font-size:2rem">${name}</h2><p style="color:#666">${ch.source}</p></div>
+        <div style="background:rgba(0,0,0,0.02);border-radius:32px;padding:24px;margin:16px 0"><h3>📖 人物简介</h3><p style="line-height:1.6">${ch.intro}</p></div>
+        <div><h3>📚 学术文献（知网/期刊）</h3>${ch.journal.map(j=>`<div style="padding:6px 0;border-bottom:0.5px solid #ddd">${j}</div>`).join('')}</div>
+        <div style="margin-top:20px"><h3>📌 待补充文献</h3><div style="color:#aaa;font-style:italic">后续可补充与鲁迅女性空间相关的新近研究</div></div>`;
+        switchView('detail');
+        window.scrollTo(0,0);
+    }
+    let currentView='home', prevView='home';
+    function switchView(view){
+        prevView = currentView; currentView = view;
+        document.querySelectorAll('.view-section').forEach(sec=>sec.classList.remove('active'));
+        if(view==='home') document.getElementById('homeView').classList.add('active');
+        if(view==='physical') document.getElementById('physicalView').classList.add('active');
+        if(view==='gender') document.getElementById('genderView').classList.add('active');
+        if(view==='detail') document.getElementById('detailView').classList.add('active');
+        const btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn=>{ btn.classList.remove('active'); if((view==='home'&&btn.dataset.view==='home')||(view==='physical'&&btn.dataset.view==='physical')||(view==='gender'&&btn.dataset.view==='gender')) btn.classList.add('active'); });
+    }
+    document.querySelectorAll('.nav-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ switchView(btn.dataset.view); if(btn.dataset.view==='physical') buildPhysicalMaps(); if(btn.dataset.view==='gender') buildGenderView(); }); });
+    document.getElementById('detailBack').addEventListener('click',()=>{ switchView(prevView); if(prevView==='physical') buildPhysicalMaps(); if(prevView==='gender') buildGenderView(); });
+
+    // AI 问答逻辑（完整知识库）
+    function generateAnswer(q){
+        const lower = q.toLowerCase();
+        if(lower.includes('祥林嫂')) return characterData['祥林嫂'].intro + " 相关文献丰富，属于“私人空间的禁锢者”。";
+        if(lower.includes('子君')) return characterData['子君'].intro + " 她体现了觉醒女性的流动与困境。";
+        if(lower.includes('许广平')) return characterData['许广平'].intro + " 作为反叛者，她突破了传统女性空间。";
+        if(lower.includes('禁锢者')) return "私人空间的禁锢者包括：祥林嫂、单四嫂子、夏四奶奶、朱安、鲁瑞、杨二嫂。她们被束缚于封建宗法空间。";
+        if(lower.includes('流动者')) return "私人与公共空间的流动者：爱姑、子君、嫦娥、阿长，尝试突破传统又面临局限。";
+        if(lower.includes('反叛者')) return "公共空间的反叛者：刘和珍、阿金姐、许广平、萧红、杨荫榆、珂勒惠支，进入公共领域并积极反抗。";
+        return "您可以询问具体人物（如祥林嫂、爱姑、许广平）或空间分类（禁锢者/流动者/反叛者），我会基于鲁迅女性研究数据库回答。";
+    }
+    // AI模态框
+    const modal=document.getElementById('modalOverlay'), aiBtn=document.getElementById('aiBtn'), closeModal=document.getElementById('modalClose');
+    aiBtn.onclick=()=>modal.style.display='flex';
+    closeModal.onclick=()=>modal.style.display='none';
+    modal.onclick=(e)=>{if(e.target===modal)modal.style.display='none';};
+    document.getElementById('chatSend').onclick=()=>{ const input=document.getElementById('chatInput'); const msg=input.value.trim(); if(!msg)return; const chatDiv=document.getElementById('chatContainer'); chatDiv.innerHTML+=`<div class="chat-message user"><div class="chat-bubble">${msg}</div></div>`; setTimeout(()=>{ const reply=generateAnswer(msg); chatDiv.innerHTML+=`<div class="chat-message ai"><div class="chat-bubble">${reply}</div></div>`; chatDiv.scrollTop=chatDiv.scrollHeight; },100); input.value=''; chatDiv.scrollTop=chatDiv.scrollHeight; };
+    document.getElementById('chatInput').addEventListener('keypress',e=>{if(e.key==='Enter') document.getElementById('chatSend').click();});
+
+    // 初始化
+    setTimeout(()=>document.getElementById('splash').classList.add('hidden'),1250);
+    initCarousel();
+    buildPhysicalMaps();
+    buildGenderView();
+</script>
+</body>
+</html>

@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>鲁迅女性空间教学 | 女性人物地图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Apple 极简风 + 毛玻璃质感 */
+        :root {
+            --bg-gradient-start: #f2f2f5;
+            --bg-gradient-end: #e9ecef;
+            --glass-bg: rgba(255, 255, 255, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text-primary: #1c1c1e;
+            --text-secondary: #6c6c70;
+            --accent-black: #000000;
+            --accent-gray: #8e8e93;
+            --border-light: rgba(0, 0, 0, 0.06);
+            --hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-primary);
+            min-height: 100vh;
+            backdrop-filter: blur(0px);
+        }
+
+        /* 毛玻璃导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 200;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .navbar-brand {
+            font-size: 1.35rem;
+            font-weight: 590;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #1a1a1a, #3a3a3a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 480;
+            color: var(--text-secondary);
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .nav-btn:hover { color: #000; }
+        .nav-btn.active {
+            color: #000;
+            font-weight: 500;
+        }
+        .nav-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #000;
+            border-radius: 2px;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 40px 100px;
+            min-height: 100vh;
+        }
+
+        .view-section {
+            display: none;
+            animation: fadeInUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .view-section.active { display: block; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========= 单张轮播图（大卡片，减少留白） ========= */
+        .hero-carousel {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 48px;
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+            padding: 2rem 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .carousel-main {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 360px;
+        }
+        .carousel-single-card {
+            width: 100%;
+            max-width: 580px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.65);
+            backdrop-filter: blur(24px);
+            border-radius: 48px;
+            padding: 1.5rem 1.5rem 1.7rem;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.8);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .carousel-single-card:hover { transform: scale(1.01); background: rgba(255,255,255,0.8);}
+        .carousel-avatar-lg {
+            width: 100px;
+            height: 100px;
+            border-radius: 100px;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.2);
+            border: 2px solid white;
+        }
+        .carousel-name-lg {
+            font-size: 1.6rem;
+            font-weight: 620;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.4rem;
+        }
+        .carousel-source-lg {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+        }
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            border: none;
+            color: #1c1c1e;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 12;
+        }
+        .carousel-arrow:hover { background: white; transform: translateY(-50%) scale(1.05);}
+        .carousel-arrow-left { left: 10px; }
+        .carousel-arrow-right { right: 10px; }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 8px;
+            background: #c6c6c8;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .dot.active {
+            width: 24px;
+            background: #000;
+        }
+
+        /* 物理空间 & 性别空间 毛玻璃卡片 */
+        .space-view {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+        .map-container {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            border-radius: 32px;
+            overflow: hidden;
+            height: 460px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.6);
+            backdrop-filter: blur(2px);
+        }
+        .map-title {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(12px);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 590;
+            z-index: 8;
+        }
+        .map-marker {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border: 2px solid #000;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        .map-marker:hover { width: 28px; height: 28px; background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,0.1);}
+        .map-popup {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 16px 20px;
+            min-width: 200px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.8);
+            z-index: 20;
+            display: none;
+        }
+        .map-popup.show { display: block; }
+        .popup-item {
+            padding: 8px 0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border-bottom: 0.5px solid #e9e9ef;
+        }
+        .popup-item:last-child { border: none;}
+
+        /* 性别空间四卡片 */
+        .gender-view {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+        }
+        .gender-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 36px;
+            padding: 24px 20px;
+            border: 1px solid rgba(255,255,255,0.7);
+            transition: all 0.2s;
+        }
+        .gender-card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .gender-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        .gender-item {
+            text-align: center;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .gender-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 70px;
+            object-fit: cover;
+            background: #e9e9ef;
+            margin-bottom: 8px;
+        }
+
+        /* 详情页 */
+        .detail-view {
+            background: rgba(255,255,255,0.65);
+            backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 32px 40px;
+            border: 1px solid white;
+        }
+        .detail-back {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 28px;
+            cursor: pointer;
+            color: #007aff;
+        }
+
+        /* AI 模态框 毛玻璃 + API Key设置 */
+        .modal-overlay {
+            position: fixed;
+            top:0;left:0;width:100%;height:100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(40px);
+            width: 560px;
+            max-width: 90%;
+            border-radius: 48px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        .chat-container {
+            height: 360px;
+            overflow-y: auto;
+            padding: 20px;
+            background: rgba(248,248,250,0.5);
+        }
+        .chat-bubble {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 28px;
+            margin-bottom: 12px;
+            max-width: 85%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .chat-message.user .chat-bubble { background: #000; color: white; margin-left: auto; }
+        .chat-input-area {
+            display: flex;
+            padding: 16px;
+            gap: 12px;
+            background: rgba(255,255,255,0.5);
+        }
+        .chat-input {
+            flex:1;
+            border-radius: 40px;
+            border: 0.5px solid #ddd;
+            padding: 12px 18px;
+            background: white;
+        }
+        .api-key-row {
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.03);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 12px;
+        }
+        .api-key-input {
+            flex: 2;
+            padding: 6px 12px;
+            border-radius: 40px;
+            border: 0.5px solid #ccc;
+            background: white;
+            font-size: 12px;
+        }
+        .api-key-save {
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 6px 16px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .api-status {
+            font-size: 11px;
+            color: #2c6e2c;
+            margin-left: 8px;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left:0;
+            width:100%;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            height: 76px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .ai-btn {
+            background: #000;
+            color: white;
+            border-radius: 40px;
+            padding: 10px 32px;
+            border: none;
+            font-weight: 500;
+        }
+        @media (max-width: 860px) {
+            .space-view { grid-template-columns: 1fr; }
+            .gender-view { grid-template-columns: 1fr; }
+            .main-content { padding: 100px 20px 100px; }
+        }
+
+        /* 自我介绍网格样式 */
+        .self-intro-list-container {
+            display: grid;
+            grid-template-columns: repeat(4, 160px);
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+            justify-content: center;
+        }
+        .self-intro-card-item {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+        .self-intro-card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .self-intro-card-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .self-intro-card-name {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1A1A1A;
+            margin-top: 8px;
+            padding-bottom: 16px;
+        }
+        @media (max-width: 860px) {
+            .self-intro-list-container {
+                grid-template-columns: repeat(2, 160px);
+                gap: 16px;
+            }
+        }
+
+        /* 角色自我介绍详情页样式 */
+        .self-intro-detail-wrapper {
+            background: linear-gradient(135deg, #f5efe6, #ffffff);
+            border-radius: 48px;
+            padding: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.8);
+            backdrop-filter: blur(20px);
+            max-width: 1000px;
+            margin: 0 auto;
+            max-height: 460px;
+            display: flex;
+            flex-direction: column;
+        }
+        .self-intro-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-height: 0;
+        }
+        .self-intro-detail-left {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .self-intro-detail-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1A1A1A;
+            text-align: left;
+        }
+        .self-intro-detail-img {
+            width: 140px;
+            height: auto;
+            border-radius: 24px;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        .self-intro-detail-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .self-intro-detail-text {
+            flex: 1;
+            background: linear-gradient(135deg, #f5efe6, #ffffff);
+            border-radius: 24px;
+            padding: 20px;
+            max-height: 290px;
+            overflow-y: auto;
+        }
+        .self-intro-detail-content {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1A1A1A;
+            text-indent: 2em;
+            white-space: pre-line;
+        }
+        .self-intro-detail-content p {
+            margin-bottom: 12px;
+        }
+        .self-intro-detail-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            justify-content: flex-start;
+        }
+        .self-intro-detail-btn {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            flex-shrink: 0;
+        }
+        .self-intro-detail-btn:hover {
+            opacity: 0.8;
+        }
+        .self-intro-detail-btn.secondary {
+            background: transparent;
+            color: #000;
+            border: 1px solid #000;
+        }
+        @media (max-width: 860px) {
+            .self-intro-detail-wrapper {
+                max-height: none;
+                padding: 16px;
+            }
+            .self-intro-detail-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 16px;
+            }
+            .self-intro-detail-left {
+                align-items: center;
+            }
+            .self-intro-detail-name {
+                text-align: center;
+                margin-bottom: 8px;
+            }
+            .self-intro-detail-img {
+                width: 120px;
+            }
+            .self-intro-detail-text {
+                max-height: none;
+                padding: 16px;
+            }
+            .self-intro-detail-buttons {
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 16px;
+            }
+            .self-intro-detail-btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        /* 空间划分理论视图 */
+        .space-theory-view {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .space-theory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-height: 460px;
+        }
+        .space-theory-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .space-theory-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1A1A1A;
+        }
+        .space-theory-card h3.clickable {
+            text-decoration: underline;
+            cursor: pointer;
+            color: #007aff;
+        }
+        .space-theory-card h3.clickable:hover {
+            opacity: 0.8;
+        }
+        .space-theory-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #1A1A1A;
+            flex: 1;
+        }
+        .space-theory-card .placeholder {
+            color: #8E8E93;
+            font-style: italic;
+            margin-top: 8px;
+        }
+        @media (max-width: 860px) {
+            .space-theory-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        /* 开屏动画 */
+        .splash-screen {
+            position: fixed; inset:0; background: #fff; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 9999; transition: opacity 0.5s;
+        }
+        .splash-circle { width: 60px; height:60px; border:1px solid #000; border-radius: 50%; animation: expand 1.2s forwards; }
+        @keyframes expand { 0%{width:0;height:0;opacity:1} 80%{width:240px;height:240px;opacity:0.6} 100%{width:320px;height:320px;opacity:0}}
+        .splash-text { margin-top: 24px; font-size: 1.5rem; font-weight: 300; animation: fadeText 1.2s forwards; }
+        @keyframes fadeText { 0%{opacity:0} 30%{opacity:1} 80%{opacity:1} 100%{opacity:0}}
+        .splash-screen.hidden { opacity:0; pointer-events: none; }
+    </style>
+</head>
+<body>
+<div class="splash-screen" id="splash"><div class="splash-circle"></div><div class="splash-text">鲁迅 · 女性 · 空间</div></div>
+
+<nav class="navbar">
+    <div class="navbar-brand">鲁迅女性空间教学地图</div>
+    <div class="navbar-nav">
+        <button class="nav-btn" id="navAiBtn">AI 智能问答</button>
+        <button class="nav-btn active" data-view="home">返回首页</button>
+        <button class="nav-btn" data-view="spaceTheory">空间划分</button>
+        <button class="nav-btn" data-view="selfIntro">她们的自我介绍</button>
+    </div>
+</nav>
+
+<main class="main-content">
+    <!-- 首页轮播单张大卡片 -->
+    <section class="view-section active" id="homeView">
+        <div class="hero-carousel">
+            <div class="carousel-main">
+                <button class="carousel-arrow carousel-arrow-left" id="carouselPrev">‹</button>
+                <div id="singleCarouselCard" class="carousel-single-card"></div>
+                <button class="carousel-arrow carousel-arrow-right" id="carouselNext">›</button>
+            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+        <!-- 空间划分引导图 -->
+        <div style="margin-top: 2rem; text-align: center;">
+            <img src="https://free.boltp.com/2026/04/09/69d7b09ef1b9b.webp"
+                 alt="空间划分理论"
+                 style="width: 100%; max-height: 200px; border-radius: 24px; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer;"
+                 onclick="switchView('spaceTheory')">
+        </div>
+        <!-- 她们的自我介绍板块 -->
+        <div class="self-intro-section" style="margin-top: 48px; text-align: center;">
+            <h3 style="font-size: 1.4rem; font-weight: 500; color: #1A1A1A; margin-bottom: 16px;">她们的自我介绍</h3>
+            <div id="homeSelfIntroContainer" class="self-intro-list-container"></div>
+        </div>
+    </section>
+
+    <!-- 物理空间视图 -->
+    <section class="view-section" id="physicalView"><div class="space-view" id="physicalMapContainer"></div></section>
+    <!-- 性别权力空间视图 -->
+    <section class="view-section" id="genderView"><div class="gender-view" id="genderGrid"></div></section>
+    <!-- 人物详情页 -->
+    <section class="view-section" id="detailView"><div class="detail-view"><button class="detail-back" id="detailBack">← 返回</button><div id="detailContent"></div></div></section>
+    <!-- 角色自我介绍详情视图 -->
+    <section class="view-section" id="selfIntroDetailView">
+        <div id="selfIntroDetailContainer" style="max-width: 1000px; margin: 0 auto; padding: 40px 20px;">
+            <!-- 动态内容 -->
+        </div>
+    </section>
+    <!-- 空间划分理论视图 -->
+    <section class="view-section" id="spaceTheoryView">
+        <div class="space-theory-view">
+            <div class="space-theory-grid">
+                <div class="space-theory-card">
+                    <h3>为什么要进行空间划分？</h3>
+                    <p>空间划分是理解鲁迅笔下女性命运与反抗层次的关键分析框架。通过对物理空间与性别权力空间的区分，我们能够揭示女性在不同社会场域中的位置、移动轨迹及其所受的规训与限制。物理空间映射女性活动的具体场所（家庭、街道、刑场等），而性别权力空间则指向无形的社会关系网络（夫权、族权、神权等）。这种划分使我们看到，女性不仅是空间的被动承受者，也在特定条件下成为空间的协商者与反抗者。借助空间视角，鲁迅小说中那些沉默、流动或叛逆的女性形象得以在新的理论光晕中重新浮现，其悲剧或抗争背后的结构性力量亦得以显影。</p>
+                </div>
+                <div class="space-theory-card">
+                    <h3 class="clickable" onclick="switchView('physical')">物理空间</h3>
+                    <p><strong>划分依据：</strong><br><span class="placeholder">待补充</span></p>
+                    <p><strong>相关论文：</strong><br><span class="placeholder">待补充</span></p>
+                </div>
+                <div class="space-theory-card">
+                    <h3 class="clickable" onclick="switchView('gender')">性别权力空间</h3>
+                    <p><strong>划分依据：</strong><br><span class="placeholder">待补充</span></p>
+                    <p><strong>相关论文：</strong><br><span class="placeholder">待补充</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 制作者信息 -->
+    <div class="credits" style="text-align: center; font-size: 12px; color: #8E8E93; line-height: 1.5; padding: 16px 0; margin-top: 40px; border-top: 1px solid rgba(0,0,0,0.05);">
+        项目名称：AI赋能与课程可视化图谱实践――以鲁迅文学中的女性空间叙述为中心<br>
+        项目成员：韩思媛、唐清、杜依诺、杨佳琪、曹雨昕<br>
+        指导老师：杨天舒<br>
+        依托单位：中央民族大学文学院
+    </div>
+</main>
+
+<!-- AI 模态框（增强版，支持DeepSeek API） -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+        <div class="modal-header" style="padding:20px;display:flex;justify-content:space-between">
+            <span style="font-weight:600">AI 教学助手 (DeepSeek)</span>
+            <button id="modalClose" style="background:none;border:none;font-size:24px;">&times;</button>
+        </div>
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-message ai"><div class="chat-bubble">您好！我是AI教学助手，已接入DeepSeek大模型。您可以问我关于鲁迅笔下女性人物、空间分类、文献等问题。请先在下方设置API Key（只需设置一次）。</div></div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="问：祥林嫂为何是禁锢者？">
+            <button id="chatSend" class="ai-btn" style="background:#000;">发送</button>
+        </div>
+        <div class="api-key-row">
+            <span style="white-space: nowrap;">🔑 DeepSeek API Key:</span>
+            <input type="password" id="apiKeyInput" class="api-key-input" placeholder="输入您的 API Key (sk-...)" value="">
+            <button id="saveApiKeyBtn" class="api-key-save">保存</button>
+            <span id="apiStatus" class="api-status"></span>
+        </div>
+        <div style="font-size: 10px; padding: 8px 16px; color: #888; border-top: 1px solid rgba(0,0,0,0.05);">
+            💡 提示：API Key 仅保存在浏览器本地，不会上传。未设置时自动使用本地知识库回答。
+        </div>
+    </div>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // DeepSeek API 集成 + 完整人物数据（与之前完全相同）
+    // --------------------------------------------------------------
+    // 请将下面的字符串替换为您自己的 DeepSeek API Key，或者通过页面上的输入框保存
+    let DEEPSEEK_API_KEY = localStorage.getItem('sk-14f2154ac4164dd0857e333880fc7315') || '';  // 从localStorage读取
+    const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
+
+    // 对话历史管理（用于上下文）
+    let conversationHistory = [
+        { role: "system", content: "你是鲁迅女性空间教学助教，专门回答关于鲁迅笔下的女性人物、空间分类（私人空间的禁锢者、私人与公共空间的流动者、公共空间的反叛者）、相关文献等问题。请用简洁、学术、温暖的语言回答。如果用户询问不在知识范围内，请建议参考已有资料。" }
+    ];
+
+    // 人物数据（与用户提供的完全一致，此处省略重复定义，使用原数据）
+    const characterData = {
+        "祥林嫂": { 
+            img: "https://s41.ax1x.com/2026/03/09/peiowJU.png", 
+            intro: "被礼教咀嚼殆尽的精神祭品，她是连续丧夫失子的底层劳动妇女，鲁四老爷家的女佣。她是“未嫁从父，出嫁从夫，夫死从子”这一封建伦理链条断裂后的“多余者”，一个失去所有“依附”价值的“不洁之物”。她初到鲁镇时“顺着眼”，以沉默的劳动换取生存，展现了惊人的忍耐力与生命力，是她对命运最初的、本能的积极反抗。她被婆婆绑架改嫁时“真出格”地撞香案，是以死抗争夫权与族权，是生命意志最激烈的爆发。失子与倾诉，“阿毛的故事”是她寻求情感共鸣与道德救赎的唯一方式，但最终被乡邻“咀嚼赏鉴”成渣滓，标志着其社会性连接的彻底断绝。于是柳妈的“地狱恐吓”使其陷入精神深渊，捐门槛是她试图用全部积蓄购买“贞洁”身份、重返“人”的社会的绝望努力。捐门槛后仍被四婶喝止触碰祭品（“你放着罢，祥林嫂！”），这致命一击宣告其“赎罪”的彻底失败。她沦为“眼珠间或一轮”的活物，最终在“祝福”的喧闹中孤独死去。临终前关于“魂灵与地狱”的追问，是她对既定信仰体系的终极怀疑，是麻木灵魂中迸发出的最后一点理性与挣扎的火花。她的悲剧不在于贫穷或意外，而在于一套系统性的精神虐杀：夫权（被迫改嫁）、族权（被卖）、神权（地狱恐吓）、政权（鲁四老爷的皱眉）合力将其围剿。她的价值始终由他人定义：是婆婆眼中“八十千”的财礼，是鲁家眼中“比勤快男人还勤快”的劳力，是柳妈和众人眼中带有“伤疤”的谈资。她从未拥有对自己身体和灵魂的所有权。", 
+            journal: ["<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtsGupbvcwzEgn4W2HKwdHgrzrij8MIL2nWo5NDaHJCpwATYOZSsLCn3sH_XfpbsC9XmWRehypCF8SoNZh_aOwL2NqF8MUtpMeonSizHMAOAJgkm13whjnfVm-HHaRKIiUf-MCCIGh2pTatkEVWgBtbe6FClR0mKw0=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[1]卢建红.鲁迅作品中母性受难的意义——以《药》和《祝福》为中心[J].南京师范大学文学院学报,2015,(03):1-6.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqsaadZ6bUZx0sfRXGwxuuGp8OuEv-oqiCoCqKem8aYbuvT4P7AVSnfoHEAtvO6xfc52-nYr7N8t4ellttV50qkeB3F4wjIojwJtqjwIUq20nslZZ2iYiZ-7rTInItdgFyPaqqYFlAc-nOMdcRk7_3K7&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[2]薛以伟.从《明天》和《祝福》中“寡妇”形象的塑造看鲁迅独特的创作心态[J].彭城职业大学学报,2004,(04):82-86.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqss9yV4uRw7RTAlRaQmClyQH-q_168BHCJ0ZWj3rkfxY3yPdO5sKf4nXlN5_0HjLp17lzwWQK9tbP7u_OzEsijHu14NCpr17jab6yKDZO_toGQaSuIbOBlT13ph6sbpDlQIxRfUBA-PEl-Tbwno1PIV&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[3]阎浩岗.鲁迅的亲情观及其在小说创作中的表现[J].中国现代文学研究丛刊,2013,(11):82-92.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqv2s2RFyEADG3PXiisyczEYGt1TG6gB-pbvENr--VnTTQnTvEfNaL-Bju0Ruwl6M4doH4sN7AoRY2pvLzeWkeRJIqgI0ujjKOlFss5VskHzd4Z_d5CdFiIMmQhqVoRklCd2j94ou0gHnC4r8phV7XZF&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[4]李峰峰.失去儿子的母亲──《呐喊》《彷徨》中的一组典型形象[J].鲁迅研究月刊,1998,(07):40-45.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtsOvy5vC3SY1qMajsAs7gymm08p_1tS8xrD1baU2TPbpLWyDfbx53GBgD0DSBNu0hYRSN4TmKdx5wg4GhlM3_LswcRTlFxKqDyr-w8JuOchLPPIPqWE01hFhXOSba7JUa1-3iGEElEMqApKMhwJ7GD&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[5]彭小燕.“虚无”四重奏——重读《祝福》[J].中国现代文学研究丛刊,2012,(01):185-198.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquRHMbVpWXLMElQHbr85x_ONTE6daE6tb-GNXdqVqTOnY3FzzPdJF5hFzv4XMFdCZTapLCV_-piWcaCGBTekisuJlzxkMKt2tsdtrXQjVuMeAPY07O4D1q6TTBaDxBM_s7tFU87CI5pWwJqck8dUifOiKtbRNy6x2M=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[6]邱诗越.鲁迅小说《祝福》内涵新探[J].中州学刊,2016,(04):150-153.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqu3ZY_PvX2KiozEBOx_GkdK8Ikb8OYq5w54vi1dxxLu8fHDq9QDwxY7hSZ4YHStf6zCt8BFGoKyAOeRlP6pXDbLKU-0jaycxtjBKVwvQjisQzGhXZI7gNHAaaE0BLswVP6dutVUa6_2z4i67tlt0BLq&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[7]范志强.民俗控制与祥林嫂之死——对《祝福》的另一种解读方式[J].民俗研究,2007,(01):247-254.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtRrdsSOVk1-t2EejNvK8ovzW0rNXXJCvxCP6Wt2YY601_JpEtbhksHmIGbDM8PVbkeRLp3IG59ZRg7CIIibsF8Fh-fNVzOiU7qYh0GsWGvRtFB0nw-fsAG3TA68E0fbebgboBrrDpem8NCGNktrlUs3knmaK_dOYM=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[8]张莉.重读《祝福》：通往更高级的小说世界[J].小说评论,2021,(01):38-50.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqs00uiDwiFLY02FzzHtS9yUv74VAEW9EV8Hym1PHNPDRbbvzFJiOP_Krr2V3FkA9Pb2MS4qzLhRilZMekhNFU0Vff9TqwKZcfIU1W30ZLWfJN7xKBwNWsw6pp7Q2gDLQbtc7rNrm71Q1qYDuaV134Io&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[9]欧娟.社会学场域中的悲剧之痛——鲁迅《祝福》之还原性解读[J].鲁迅研究月刊,2009,(04):43-46.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquWTz8kJc7Fshb3mr8WplQW8txKqNOTf0xz1uk82UVpxtjaUEEqi1N-yV9h-eXgJv_zg8D3-MqKcrHCU3Ri8xsh68l7_N87i9gznIams_hck7FEM93Kma6GWg7_qSZFO75W0MIDtri_kiLlXLm5ZmK0UPkuo5sInb4=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[10]姜异新.“呐喊”之后的“重压之感”——《祝福》细读[J].文艺争鸣,2022,(02):30-33.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtuK4Kwdc0VXlfOJFJo7sFmZ9slbEPmDQEXu0uGrtyMzc6qizW3DJ9WNj6W8SdUThz2LugyFjD7MVfiR3WxRIzmqjvBnP6gSHyoby5bHfZxqQX-Uq1mTiuEViZOQjMTcMZR9Cs_VeXehQGg4bL1bvnCfWYa3mDHQR4=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[11]李国华.“末路的人的苦恼”——鲁迅《祝福》释读[J].南方文坛,2024,(05):30-38.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquUGtn0lWwaBT_1zEFF6oDNimqGJ9ZA2pxgRah2HH56T4RIphQkk5P-EamHmgSIXnkleOwKIT0jifvmtiRLCUx2cyNAgT05LFbJ_hm7XdOjzWs91LNwpie8X8v0_AfnGx5ncSrs5eSAkaozQOA_zo5ytNUqsitt_qE=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[12]管冠生.重建祥林嫂的“半生事迹”——鲁迅《祝福》细读[J].东岳论丛,2021,42(06):154-160.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquP7wQeA8krOuRoJ0ZNClrqtbkblBTr6tAcnRKq_IK6Db42geDgdDHv104NAJqt_0t4xaEj_YdbhVP8nBRwqfLRhDMqA1Uc-YEdtOBrefJJk_8_LYIbaElJjB6uXTPnFjJzF7zBsyZFCw-WigkukvEydYgxpdFObJY=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[13]何力.创伤言说的不可能与可能——以《祝福》为中心[J].鲁迅研究月刊,2018,(06):81-85.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquNmWVoKf3IUJxFwSWPHLBH3OKI5eL5olb3XYBt__s0ohltRadhXPjoY5KZ13dRmgwkucvHTQRvd2Yb2JPEh8jCeykASKE7ROxWt7X0HjpnLpCHYtlGZ_XKeftjEYI648MeFJLBgg57BoymW6wO5pCz&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[14]崔绍怀,刘雨.祥林嫂年龄辨正——鲁迅小说《祝福》研究之一[J].小说评论,2008,(S2):12-13.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqvmo7hnqYJopnzKNf_-52-u0MPXVUZyPnohSs_LK0fUelYlpJ_PqfT9m-jD-RNuta_evwRZjJmsB0ygKarlqWCcf3rj4h8DkDt_djjF7EqhSWdOVOSbXhgGSBsmuKVMepGDKNDWZaP-EJaiVy9LXBPtbVhjrQBbnBM=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[15]杨红军.小说《祝福》主题的误读与辩正[J].鲁迅研究月刊,2016,(07):35-44.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtIEAmiJKVFUTPteZtZbyMZoL-aBy9Wvel9qS0NnbDwoi3uI0LB9C5abj9AES6O90Mwdgf75skMoZcVUWGXxC_ORalL8m-RWtEc-Vw0F8eu_GYlpg8uLQlHkYhtUJdBf1kaFE5FZNswbwBWfKm_Gzz7&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[16]李明军.文化蒙蔽:鲁迅小说中女性形象的精神桎梏[J].鲁迅研究月刊 . 2004 (07) : 75-80</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqv9fTwuYIFol5uL3u07oZ2RA05mGgh43ii_b8hitd3etIzyYsPD6eg0U25j36JqAmCCPVIvFUc8fzfrBwU-9eoASJF89zxeol9SrBh18_7jQfhWZDgBgS8XPEvkH1Ab5M60dVZfi7LS8OmmLMr3NeRw&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[17]彭明伟.悲哀的推移——从《明天》、《祝福》谈鲁迅小说叙事的特点[J].孝感学院学报 . 2012 ,32 (01) : 30-38</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquIxezdPd_KYRN3TNmhNb-umcSiqLKrdr1vRAzO5DJIJLQMPWG2XEFo6T1e8DP6It5cpHN382QxOGFruVClpUOtamLUqljicVJe2K8AqKMG7mo5Ij2SoLr-omtMHD4uq5Sv4F6MpuBWxpzyer7dIORWLgkcoeebonQ=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[18]夏怡.论鲁迅对封建节烈观的态度——以《明天》《祝福》《离婚》为例[J].安徽文学(下半月) . 2015 (10) : 11-12</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqsAnOaOSQ0_AUPsVlKj_YzAS8NYxsw6lSZIX5oTwymFfPBBAhtC2mcsdXNJBJtEjh59_gUmB5IOEVOe452X_03u9tUxItoKPHBxUtFcsN5DigdUpxmiCM8aRHoaXDB1qG2e5nlWNrOm-pbjPnilL4Xn&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[19]魏程明.浅析鲁迅作品中的女性主义——以《祝福》《离婚》《伤逝》为例[J].安徽文学(下半月) . 2008 (05) : 166-167</a>"], 
+            source: "《祝福》", 
+            category: "禁锢者", 
+            spaceType: "virtual", 
+            location: "鲁镇",
+            spaceLiterature: [
+                "1.余新明：《呐喊》《彷徨》的空间叙事[D].华中师范大学.2008（10）",
+                "2.郭金玉：鲁迅小说叙事空间研究[D].东北师范大学.2011（02）",
+                "3.陈娟，张期梦：空间与嵌套:《祝福》深层叙事结构分析[J].语文教学通讯 . 2021 (10) : 56-59",
+                "4.夏维波：空间的想象与呈现 ——谈《呐喊》《彷徨》中空间形式[D].东北师范大学.2005（05）",
+                "5.叶木桂，杨有庆：权力空间的“牺牲人”——《祝福》祥林嫂的“空间”解读[J].淮南职业技术学院学报 . 2009 ,9 (03) : 122-124",
+                "6.陈德翱：鲁迅小说《祝福》空间叙事研究[J].教学月刊·中学版(语文教学) . 2016 (10) : 55-57",
+                "7.唐海霞：鲁迅小说中的空间叙事研究[D].大连理工大学.2018（04）",
+                "8.刘传霞：被建构的女性 ——中国现代文学社会性别研究[D].山东师范大学.2006（09）"
+            ]
+        },
+        "单四嫂子": { img: "https://s41.ax1x.com/2026/03/09/peiodiT.png", intro: "青年守寡的底层劳动妇女，依靠纺纱独自抚养三岁儿子宝儿。她是鲁镇中经济与精神双重意义上的绝对弱者，生存希望完全寄托于儿子身上。 为救子，求“神医”掏空每日节省的积蓄（十三个小银元和一百八十铜钱），体现了她盲目却执着的母爱，以及在科学知识匮乏时代民众对神秘力量的依赖；面对蓝皮阿五带有猥亵意味的“帮忙”（从乳房与孩子中间伸手抱走），她虽不愿却妥协，凸显其孤立无援与身体自主权的丧失。 宝儿死后，她“哭一回，看一回，总不肯死心塌地的盖上”棺盖；为儿子准备“顶新的衣裳”和心爱的玩物，其悲痛震撼人心。但她同时试图用“这不过是梦”来麻痹自己，然而“银白的曙光”和送棺人的敲门声一次次击碎幻觉。最终，她面对的是“太静、太大、太空”的物理与精神双重空间，生存意义被彻底抽空。“粗笨”背后有坚韧与局限， 文本多次强调她是“粗笨女人”。这“粗笨”并非智力低下，而是指其被剥夺教育、孤立无援的生存状态，使其无法理解复杂的世道，只能凭借最本能的母爱行事。然而，在决断去诊何小仙时，又显示出底层女性在绝境中的果断。她希望寄托于虚妄的“明天”（小说标题“明天”），但“明天”带来的只是更深的绝望与最终的死亡。她对“明天”的等待，是对未来盲目而脆弱的幻想。她的痛苦无人能真正理解、分担，是鲁迅笔下“孤独者”的另一种形态。", journal: ["<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtWuvZtEn3jTSMIoS7hF8KIiCA1BmK85oY1GylgW6SNqui87QpfeTq-CF0YbkXMBxsPFcQ46OcIngZiW6lWffXl_gxUYgnvv4qxxQz2YZf0T9ABxHB8TbHOFzNAapt9CR0JTtU15DAx5UXostnHcAl3Pk1qIrpsaJI=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[1]龙永干.邻里伦理与“自然之道”的隐喻——也论鲁迅的《明天》[J].鲁迅研究月刊,2022,(04):5-12.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqsaadZ6bUZx0sfRXGwxuuGp8OuEv-oqiCoCqKem8aYbuvT4P7AVSnfoHEAtvO6xfc52-nYr7N8t4ellttV50qkeB3F4wjIojwJtqjwIUq20nslZZ2iYiZ-7rTInItdgFyPaqqYFlAc-nOMdcRk7_3K7&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[2]薛以伟.从《明天》和《祝福》中“寡妇”形象的塑造看鲁迅独特的创作心态[J].彭城职业大学学报,2004,(04):82-86.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqvw6bYVCyB2_vLrVzv7CJ2F_xZxOGcCpD5zMJ3kJE87xNtF6msG4R3J9xmULo02Uoul5p7XhDL0yXFStqQHEJsrDokrQJ4zM0Zni1jZW43nuLIKFCYQasoSK6OYiz76xU6ieRIKgGi3P9JGaJnvmEXjLn7ZwFGGoNQ=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[3]管冠生.鲁迅《明天》的精神分析学解读——与施蛰存先生对话[J].太原学院学报(社会科学版),2019,20(02):7-13.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqvXvJS3FeZtLqFX8UAlQWoqi-DKUa-euQrm61uvzNp0Ql-98fT-QpmpCnSouGeghhZOS4t5TQqrM6PYyZhbwiIF7HaaKAE96qTBz0JFBd4Ph5_oLkLP_cTvaWm_y5E58BSzq_SVAiPaOZzk9Voy3qHRhJLgOvetqjA=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[4]符杰祥,李帅.“重压”如何“曲笔”——《明天》的古风中国与叙事变奏[J].鲁迅研究月刊,2025,(05):5-19.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtX9X4AiVQ1vUqmPGeUXyQ0QgUay7Jxra4ZkP7E3uOPfyrngFuk90YGZ6odouc6gN9TWKjsCB2SCC7IfJaUyvRwgYhf55PBagEDaejkITyp9YzI_TM09bWMI96nyPoEy6VRD9WcdAr2yxNXYHJnOL1S&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[5]阎浩岗.鲁迅的亲情观及其在小说创作中的表现[J].中国现代文学研究丛刊,2013,(11):82-92.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqvSSoOstBhOzsNqKh8wcj5Dv8HZWw1njpz4y21oejSuuLt1u9nYSqSJdtEhSFh4dH4pttzCSGgwKTQIxo8FtbjlFbyJfabfapOszOuqHZcBhHWypiqM6YXwH4cGGVYU4Opxd_v0Du-cq_xqJzPCUtg7&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[6]李明军.文化蒙蔽:鲁迅小说中女性形象的精神桎梏[J].鲁迅研究月刊 . 2004 (07) : 75-80</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqu6MSSLW4-ab4pMssxlHt1BaVCSKf5uu4pE7G5kFEYyW-rb47HYrIYPmsiA9voCYjF8x9Hlt3mCcNt-UGPL9m1nhthhWHS6Y54rt1dGVN2hG_yNzuRht80qD_nY_8toZSBnjWTs9VGosuxNb73T-B8O&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[7]彭明伟.悲哀的推移——从《明天》、《祝福》谈鲁迅小说叙事的特点[J].孝感学院学报 . 2012 ,32 (01) : 30-38</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqt81W-qdZBj3gEnlWCJwNwgdRKGL736BGWfg8_S1QNqK13bLpoQ9maCrpulbtSbVWVE3hkkrvZ8pWwTPjjmkpi9iamuGg6PqjScpc1I6yHbpTmHUEzkHDUFpjkoxNqn1Om8CFZwK559TNJBOrbdvAzuK9N3j01I9Vw=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[8]夏怡.论鲁迅对封建节烈观的态度——以《明天》《祝福》《离婚》为例[J].安徽文学(下半月) . 2015 (10) : 11-12</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqvW6OYwnwKyrpHyHg5IyLiUQah_xILj0mcGyJGya9fEnr8l4SAqSngapmd_FwDywQxHuxXY2LrpsdYNpGTDpeAZFCpPFmlvAHwQ3yvBI3-JLacqDkwDBk0HC3UfuXUh25DDeMSf3D-ouhH51oWCFZso&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[9]杨爱芹.一个失子寡母的无望“明天”——重读鲁迅的《明天》[J].名作欣赏 . 2005 (16) : 82-84</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqti_DVxSVSmyAsGG_-dQUr9lTrvMnSbtxeRBbJ52Um-_miOlnHYaX_LHWXf9Xer-wHtZBwP5L7_jQ8pLaULs5gILTnBI2IjnuksWTPQo4K-3eJ_BoJPa_anF8IXSjyAhrsGLh86bkxbAFbEKcbQ96n3tFzcBWN1Jvo=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[10]龙永干.邻里伦理与“自然之道”的隐喻——也论鲁迅的《明天》[J].鲁迅研究月刊 . 2022 (04) : 5-12</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquRPJzp9ac8X0htOVR7780V9U0wY_PqXWuPW8KIerjqf1wDp0mJTwjgi-js7SeYmPy5Df7q_K_WRA8QIeYQyO8bBd9wlMofHJT4LZ-TFjty1aIWxxlZ7x2FUhor4bg5gdXSq6wAmoAI1JQ62WxEqP2Z8Zwxb2p1xb8=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[11]林雅慧,史挥戈.性别语言差异与鲁迅小说中的女性表述——以《祝福》《明天》《离婚》为例[J].长春理工大学学报(社会科学版) . 2022 ,35 (03) : 155-159</a>"], source: "《明天》", category: "禁锢者", spaceType: "virtual", location: "故乡", spaceLiterature: ["1.余新明：《呐喊》《彷徨》的空间叙事[D].华中师范大学.2008（10）","2.郭金玉：鲁迅小说叙事空间研究[D].东北师范大学.2011（02）","3.夏维波：空间的想象与呈现 ——谈《呐喊》《彷徨》中空间形式[D].东北师范大学.2005（05）","4.唐海霞：鲁迅小说中的空间叙事研究[D].大连理工大学.2018（04）","5.毕绪龙：“鲁镇”：鲁迅小说的叙述时空[J].鲁迅研究月刊 . 2005 (09) : 38-43"] },
+        "夏四奶奶": { img: "https://s41.ax1x.com/2026/03/09/peioUoV.png", intro: "革命者夏瑜的母亲。贫穷、衰老的底层封建妇女。她是既矛盾又痛苦的，她既爱儿子，又无法理解他的革命行为，反而因社会偏见感到羞耻；同时又充满了神秘色彩，将革命者夏瑜的坟上出现的一圈红白色的花作为冤枉的象征，没有根的花是革命同胞的纪念，也侧面展现出夏瑜母亲对革命的本质认识不清与蒙昧的思想，同时她又深切地爱着自己的孩子，也希望孩子能够正名。", journal: ["<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtJHutGUDy2bvek59onlTcGnhyVKdAh3u0c49wCUp5n3vm7eboihl2zFBvo-Y8S5hV51-PgjFR79E4V26o0xFvOt1QeTtNcI-OOVvLnZoM8VGcZYBgFte-EZKfdqe3lg5CV1IQVW2bH1RS0JtKeISBe&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[1]刘启恕.鲁迅《药》中夏瑜母亲的形象[J].郧阳师专学报,1985,(00):65-66.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqvQsmFKp3fhe1kQMa9zs-c-m3MG9aqf6Po-bsKLdNAZdej-5VmLGFvP1nLCQh-sQmbYlBETo4xRiGEaimA1IdMubVtT1K5FQPHk_H5Sl0KRfY_O2Z7hgRY9f5fl2uHSWeNNv-798yX8hZfb9qFrZB_aG9kHZY9SYdM=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[2]卢建红.鲁迅作品中母性受难的意义——以《药》和《祝福》为中心[J].南京师范大学文学院学报,2015,(03):1-6.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquO7JalZW6GykFcjM4zb2YC_SSmLoNCUXunN2l-O_0PwT01wveBmdeDLumQnfbEPkRRkVwAGNRQQTJoSmHptR9SWGktHV74HNNMPH1jxYOiNpBetg87VIFQd3AgxxEpmK5x7qaZGxRtNvriem5PeUXyLDJ7wE5xDqk=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[3]李晨.民众、民族-国家与牺牲者——鲁迅的《药》及其他[J].文艺研究,2024,(01):77-89.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqsdPeZY1gFL4Wt6weNV11-YS7A543PVFyxkOzPFLw4t2K6fGpyep4WAm0SC6--XuGpVmxLtjGjUlFEhaQStSY4KBwOV3l0w4PP3fO9Ul4rski63J6ikrnCJmJ3Pe2GC9m9LFx_PJVi8XhbUHpQhovVL&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[4]阎浩岗.鲁迅的亲情观及其在小说创作中的表现[J].中国现代文学研究丛刊,2013,(11):82-92.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtwqNWeebcU6-Kqg8w5FKhPb3wSZSKpkXvZDXQgF5XcTA5GhNB6k1TtAgMl-i57vGqiJ3WaxrxKPfcqxQkzACaQiflUob8D1C1fXZQ9dESpTwEZdMhrURjqNEAaLLSfkZCHiH6oAIwTlOo5M1x5OK_z&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[5]李峰峰.失去儿子的母亲──《呐喊》《彷徨》中的一组典型形象[J].鲁迅研究月刊,1998,(07):40-45.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqu9sSR0I64_H6QmmOUYl4j0jqI40Tcll5dzjA-fGDu7gTWiF9OIQ9siZhBrdFwByF12p81NNcSoU_lWotWo3Kor1EC0DinTN6oyqa4f0B627WHKvPsiTnlEMj4KGgT3kyujxbLLmWffqS_p-372sbVd&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[6]李明军.文化蒙蔽:鲁迅小说中女性形象的精神桎梏[J].鲁迅研究月刊 . 2004 (07) : 75-80</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqsaK6iKC_xA_bgb_TqQYep-tUfokwvOEHxBUYfMsprje5gKzObSEThQYHqyLY9BDgC6Xmtmr9iMIChoSzfwsKatcgXW6neU8AvK7EeBA9l_TDzO9t_atsBXsqOYzRQYJ_YqhRYy3GANJxVB9e_NcWhW-xAQxNayzwY=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[7]朱耀照.夏四奶奶与祥林嫂人物形象比较[J].语文教学之友 . 2011 (03) : 34-35</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtyxeiG_psw1F2MbFEnGGqUFGe2wvuKsHJHioV56tFsZCRd41nBOILPGHNsKTNHPpnNgbkcJMUCywTWmjMFw0IHIr2BXHRKb0XcLOEkeJdNeY8mDTU3a4AP5pYmdzHZy5TXI4EZCrT22Hr0P4g-lJar&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[8]潘付云.风景那边独好──浅析焦母、夏四奶奶和黄老妈的形象[J].平顶山师专学报 . 1997 (03) : 32-35</a>"], source: "《药》", category: "禁锢者", spaceType: "virtual", location: "首阳山", spaceLiterature: ["1.余新明：《呐喊》《彷徨》的空间叙事[D].华中师范大学.2008（10）","2.郭金玉：鲁迅小说叙事空间研究[D].东北师范大学.2011（02）","3.唐海霞：鲁迅小说中的空间叙事研究[D].大连理工大学.2018（04）","4.徐秀慧，林雅琼：鲁迅小说中刑场的空间衍义 ——以《阿Q正传》《示众》《药》为例[J].鲁迅研究月刊 . 2025 (06) : 5-16","5.王萍.中国现代小说文体的空间叙事研究[D].兰州大学.2019（04）"] },
+        "爱姑": { img: "https://s41.ax1x.com/2026/03/09/peio0WF.png", intro: "爱姑是鲁迅笔下最具原始反抗精神的女性形象。她不像祥林嫂般麻木，也不似子君般依赖启蒙者，而是凭借一腔烈性与朴素的正义感，试图在封建权力网络中为自己争一个“说法”。然而，她的失败，彻底揭示了旧社会所谓“公道”的虚伪与权力运作的冷酷逻辑。\n她是一个充满生命力的“泼辣”反抗者。她是沿海农村的已婚妇女，因丈夫（“小畜生”）姘居寡妇而被夫家厌弃、要求“走散”（离婚）。她是父权与夫权双重压迫下的直接受害者。她性格核心：刚烈、强悍、不服输。她不是逆来顺受的弱者，而是主动进攻的“斗士”。她语言粗粝（直斥“老畜生”“小畜生”），行动果决（支持父亲带人去拆了夫家的灶），并宣称要“闹得他们家败人亡”。她的反抗基于一种朴素的道德感和自尊：“我是三茶六礼定来的，花轿抬来的”，丈夫不忠，公婆不公，她便有理由斗争到底。\n《离婚》的整个故事展现了爱姑从“信理”到“畏权”的幻灭过程。\n从最初的信赖，“知书识理讲公道”：爱姑反抗的心理基础，是对上层阶级（“七大人”）抱有幻想。她认为“知书识理的人是讲公道话的”，相信通过陈述自己的“艰难”和“道理”（符合传统婚嫁礼仪的正当性），就能赢得支持。这体现了底层民众对“青天”和“理性”的残余信仰。\n但最关键的误判是，她将权力象征误读为“和蔼近人”：初见七大人，见他谈论低级趣味的“屁塞”（塞肛门古玉），她竟觉得“和蔼近人”。这致命误判源于她对权力本质的无知。她不懂，真正的威严不在于讲道理，而在于无需讲道理的绝对权力。七大人的庸俗，恰恰反衬出其权力根基的腐朽与空洞。\n当她被仪式性权威瞬间击垮：当七大人突然拉长声音喊“来——兮！”，一个听差应声而入，全场“鸦雀无声”时，爱姑的心理防线被彻底摧毁。她瞬间“知道七大人实在威严”，并感到“大势已去”。她恐惧的不是道理被驳倒，而是一种无法理解、却笼罩一切的权力仪式。这种表演性的威严，比任何说教都更能震慑一个相信“公道”的乡下女子。\n最后是彻底的缴械，“我本来是专听七大人吩咐……”：在极度的恐惧与孤立中（父亲沉默，对方势力碾压），她下意识地说出了这句投降的话。这并非想通，而是在权力威慑下的本能屈服。", journal: ["<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqvhzKexKuITfcfDUA9FQhMsTbr0LuFqbruAT5cEFcdPGgu_9tHlJekvnPLjVmSijBkFOBV_9SXt2Mn0b8ak_z6pfEVkN_ye_guvKVz44K6htXHtXxikafU6yH-lDHjrYyb8OSYWS2lgmQ0UHDk4-0-DrwrgDBzgIe0=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[1]黄子平.由爱姑的“钩刀样的脚”论定《离婚》的主旨并非“反封建”,又由此论及鲁迅的“身体记忆”[J].上海文化,2018,(09):14-19.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqsz5TklTRJFw2VoJ6wbhyaclzCxIplXSsw9oL4rm4shPY0n2O1M9GdgMtW-eC3FozreX2FYpbTHrMu5LdASsSQbqFWy15aBDMYGrg2EnXFeU7W_WeEtsAHIqk0DlCgPCYQffcrLnmgtcirrvCnfJ4qZ&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[2]张敏.从《离婚》中“爱姑”形象分析鲁迅的妇女观[J].文学界(理论版),2012,(06):36-37.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqvaNbgDw08W05k3ieSVUDYogViK0oeiycWzTbkccWay3BgOYsiVu8wwBGsTWV_KdHJ1wwZ300VxkDXTamuex1ACvoNqh3QMSjDKywXUaCrsHcjlovjwOjiI8i2Qj2hn3ZHtEPLgCRM6t1DmSN64iTnI&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[3]周义祥.“现代的国人的魂灵”——《离婚》主题及爱姑形象辨析[J].中国文学研究,1988,(01):64-68.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqvJdQJwo9B0sECdHC5ZAXEYeaSR7Ayukco0HciEmbjF66lv80iXcoY0ZhtebVJMoL6NzMX_ggmkULgdMhpDo3CCr1puCNLzD24R1W1vtfAdMs-dGRplsLgtFXNsZzeYTHAEWXZz8A5iOhDuybLp7GA&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[4]周庆基.爱姑的悲剧——《离婚》赏析[J].名作欣赏,1985,(01):45-47.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqsER3SeY8dFr3kteowA5yumLgHWX8S_eAacQKG53Wo46knr_JnRdQxLjqgbX81kEBAHRhbMrKKqWSAwMt0eey0OiqXnJQXtO5uq9mVzNqyY-bFSLoSNpWkTJmrynkwkP15yQ3mdMBkPn0YxXSJV7zCm&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[5]倪斌.试谈爱姑——读鲁迅《离婚》札记[J].破与立,1977,(06):35-39.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqthv6PV-IOESd204PYQUOyRSbZd0jTSF7waWIpTX9Xh6Mne3lsXV-3Y0gpkenxPtX9DtO-wHNweuZL9QuqnufZ68cR1JOOh6oFEfUUhL5X3BVzwpyX3zZvtrvrkvYktGJEAvtcDSXd2tVRDzC2j88-tnzoB9kUCdWM=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[6]韦佳烨.“立人”视野下《离婚》中爱姑的形象探析[J].长江小说鉴赏,2025,(14):27-30.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqu_YdBr2l0YhHcJR7WNp9Faoi60WPDH6nvFshDAj8XMYUmVCgYchvOQ3nP0VwKUlY0KlvzErBD7r01-FAi_0oq7xfSH_oEpcMJCHPm9-_ZBt6c_aZIVNbzx6oE5sz-06lR-s8foX2zjxZC7MkccywPKI2HUUwyxyes=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[7]吕周聚.论爱姑的婚姻困境与无效反抗[J].惠州学院学报,2024,44(05):8-13.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquly3T2ICOg6AjwEO5rPwY2ZlfjqBT0KzHZ6opOroogOWgTRTGkigxCVQctgezbhTuxbuSAdKJqnVgVE0tEbsTvb8DdtdlKHwA8yZHnORdQFiwF83O_6BIif8XELI0PBguT7wGZ5zWmJ9eMS0LCtMW9L8quptV2Rns=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[8]董艳艳.《离婚》中爱姑形象的复杂性分析[J].青年文学家,2021,(21):144-145.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqu103crFaaSL5s2-ehsNfbVO-eOMB_cQx3HgmFTEcZRCL_8gfSg5GBdQK7uJ_5i1cjYmEm02GGiZnZZJMQDhg_496bzgW8rJe74wJ62DaCXrx8mYieR4tX5snLuLM0VmhQPd4V8OfK2PU4toEVLn-BfInLVz1my7Q8=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[9]夏怡.论鲁迅对封建节烈观的态度——以《明天》《祝福》《离婚》为例[J].安徽文学(下半月) . 2015 (10) : 11-12</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquu6brQsHL1PhuSGHv7wCzwHnkMFaoU7SnY-9UuQ5OtN_LnNgBxeRhWX_7V56higIpJCdD03W0kY2YE4r2AUNt_VJRy48HypT2TAMeDP1jDlY2-0gNU5rfLmDQLWce7z8JUlMbXWkgax3QpDa9BEYQAOw0qoKiVnNE=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[10]林雅慧,史挥戈.性别语言差异与鲁迅小说中的女性表述——以《祝福》《明天》《离婚》为例[J].长春理工大学学报(社会科学版) . 2022 ,35 (03) : 155-159</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqsOOl4bkHEGlKgyQDZNwvqumu9FQquiB9irsHyRd2YOMeENxwffKfxCSCxrn7JW1jUoTqMJeHboztoD2IU2s1hYKfzVH-J5Fcfozm2YdN3cxXxYBpGAuHdF0QcO8Los_GC0-wfRrGv1u2GBRDoHraN3&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[11]杨联芬.重释鲁迅《离婚》[J].文艺争鸣 . 2014 (06) : 51-55</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqujrmnLorX1THOz39fFdRy6FAU2GyD8E2XgLvcI2Wf7MVrtwktv4cePgYMxCld3lg3nQ90V-YyB-quNC4BxK8RfYFHbzUP82z69NGxyH75rBD_4DzFLupzdW57n0YBZPVlSWJOKUUumhD5D3O1910nz&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[12]罗华.伦理困境与欲望叙事——审鲁迅的《离婚》[J].鲁迅研究月刊 . 2006 (12) : 30-33</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqs-BnysaGRsHwYR3NYqOdL_3F6-VM4_Z0cSCsr_w0lwmmacQMFjFA6feJCYynsZtE0ccB9k_nDPpoS_Kve8I0nqlLHHIHy055gGF9jbtMmhfKMT8YsF5T8QT1jaMn0CAnoZRlOXP3uRwggJ1dfOtdts&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[13]魏程明.浅析鲁迅作品中的女性主义——以《祝福》《离婚》《伤逝》为例[J].安徽文学(下半月) . 2008 (05) : 166-167</a>"], source: "《离婚》", category: "流动者", spaceType: "virtual", location: "庞庄", spaceLiterature: ["1.郭金玉：鲁迅小说叙事空间研究[D].东北师范大学.2011（02）","2.夏维波：空间的想象与呈现 ——谈《呐喊》《彷徨》中空间形式[D].东北师范大学.2005（05）","3.唐海霞：鲁迅小说中的空间叙事研究[D].大连理工大学.2018（04）","4.逄增玉：现代文学叙事与空间意象营造[J].文艺争鸣 . 2003 (03) : 10-15","5.毕绪龙：“鲁镇”：鲁迅小说的叙述时空[J].鲁迅研究月刊 . 2005 (09) : 38-43","6.叶世祥：鲁迅小说的空间形式[J].鲁迅研究月刊 . 1997 (11)","7.李卫国：权力表征与空间秩序——鲁迅小说的舟船空间书写[J].华中学术 . 2024 ,16 (02) : 110-118"] },
+        "阿长": { img: "https://s41.ax1x.com/2026/03/09/peioBz4.png", intro: "长妈妈，绍兴东浦大门漤人。死于1899年（清光绪二十五年）4月。夫家姓余。文末提及她“过继的儿子”名五九，是一个裁缝。\n她粗俗、迷信（切切察察、摆“大”字睡姿、满口古怪规矩），甚至无意间踩死了“我”的隐鼠。然而，正是这个“并非学者”的文盲，却将孩子“念念不忘”的渴望放在心上，默默买来“有画儿的‘三哼经’”（《山海经》）。这一举动，展现了她质朴而笨拙的深情，让“我”顿生“伟大的神力”之敬意。她的形象，是中国旧式劳动妇女的缩影：既承载着传统陋习的沉重，也闪耀着未受教化却天然浑厚的爱与善意。鲁迅对她的追忆，充满了复杂的情感——有调侃，有批判，但最终归于“仁厚黑暗的地母”怀中一声深沉的叹息与永恒的怀念。", journal: ["<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqv9sL2GVUlubNRyGJzixZoxlOjDGGUWFOJb8eT4MpkyIx57GgBkR5Is8UQHmM39eT07C-YYDFiNCjVRAUUIaPr7XitaB8J0D-M4v2IWas0wlB0luK3za8dCOBbWEg9LFY4fCY_elJuXw9z9dmqz20SmhUZHWg7Q_Xs=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[1]宗慧坚.《阿长与〈山海经〉》阿长人物形象解读[J].语文建设,2017,(29):18-19.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtAdubpJ4LHmm_gJ8fgt5hMadl2jAJQvOHKf1RB4bn4PCqFjya0yRka_QUczTl5UlexxXkm0-YrXbxsKat1bdd4k3kvrhko9_hsiZzVvLcpqlT8FYelgx636-XjnDfy9go5ngzpeZ8fo2H-0YVZei6n20IB8ZZBcxc=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[2]朱崇科.《阿长与〈山海经〉》中的三个鲁迅[J].绍兴文理学院学报(人文社会科学),2020,40(11):55-61+2.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquN_ZVvjkeShrSMXBhv4cnuuK91bAsdfJEJwmK089-rnFae22cMBJ0usStLhBSfur9LgDfc6O_0Yhd6QtYZioHjMs469nnvM63cf87pBUSOGYoiV4JwC0X61wtEpePb-sp6Ttkaf7RPrImeXOxbfRN1e-amgUvlAs0=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[3]黄键.一个褓姆身上的文化社会学密码——《阿长与〈山海经〉》解读[J].名作欣赏,2020,(01):106-111.</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqut7X5OZ0XYQx0hk8xoJPG_OE9TEg66m4MfR43SQRE4AWpkkD3CMFfrxJ07CK2vc07NNUWNYuOOCOmST4sHkQU_2uvJKecid7p1WgpKOYXqGFQ6lXPT_Ll6jvCO9IXwwlEZkWZ3BYv3Bp-n8At4ceLDxDq6iTsLkRs=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[4]黎思思.《阿长与〈山海经〉》双重叙事视角解读[J].文学教育(上) . 2019 (08) : 34-35</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtvxPWT5iBhCdblL1ssZJsV2o7KAncywBugNd9EYsFdvp0E9uIIHRrqtAq062gOH2rYwxPpYiRgagRFFll8KMIYjSwZYn9K398cS3wzektRS8ierBTmHkuaUzeyCt3fEi2E1O7RpDO24_RBnPtgpoxt&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[5]李宪瑜.记人与话旧——读鲁迅《阿长与〈山海经〉》[J].语文建设 . 2002 (11) : 16-18</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquoqsqjFXoajgCf4S5ZZuc2xnosOIt6PgHoGgd1WGkb_V25CUlNe9q6RP2rRW6NkX60GYiyZb5mMIUev8np5_8bXsl9zPMsMw3ngYtY1UFTycfqg8HMgv9nexNDarv0cV7BtS93leXgksjztH2nQuC16CmGkPUuE8U=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[6]陈丽萍.寻找怀念的理由——重读《阿长与〈山海经〉》《藤野先生》[J].语文教学之友 . 2008 (01) : 28-30</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtkL4kykPOJA-BE7z3FXLPKDc1VuGdkPlXa5ec6Z5QdCQ9grZs3_1BiNWdgauDnBdCt7Ke-zB7hOZNbwfkIDR5HTlsQ-bcx5DLwJDwxq8gK3B-xln_qsp8xRC5BjQYSY8jYCrBwuJ5V_3jjxwNuP7e4bBiZvbnI6d4=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[7]冯颖茜.卑微的阿长与鲁迅的母爱眷怀——读《阿长与〈山海经〉》[J].名作欣赏 . 2014 (26) : 79-80</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqsbW6gs4yAA6jF6n-uCkWDIlKFa3EVvZ6Afw3sFfgAX0s7v6bVHUJDtRs-6_5fF3qzfGobY7dSxZVQOrGzb6nItfMSTnAFAF3QqIkSJ0z7O9kaAqAQVCKrOcTu0aJ9_hqqUiDvGVWaYJ0u8ej7FCgrH&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[8]赖建玲，郑家建.重读《阿长与〈山海经〉》[J].鲁迅研究月刊 . 2010 (09) : 64-65</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtpbpaELAFJ6Ow1nrUbUCTbrLJ05QEbnWxvJ6sVW3u_jh2JBeBPSVK327rDFKpS2ffokl6UAf3fKeK6f8RgYpNqMMDo62nToxWDPk7jdVZodpjxpRtNfl_ACYy0hoINKYshEnNFFS-7xyisLb2RdRAieIeeK0jGSz4=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[9]胡微云.简论《阿长与〈山海经〉》中的阿长形象[J].语文学刊 . 2006 (12) : 101-102</a>","<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqveUBWV3AnXA3BgVtFJV-oZq_ellucoPOEM2cCG0xotcsax56Fdu9iXKVcVu6csbXdMWtOjzg9IXtdkiOc7fH64ovKNclA9bDB-1hMIePY-I0ERVk5ZlcxZqRKuX_4HEJfl_ruoAnl9tn4LQ2eqtfA4koJ-8BSK5p0=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[10]张鹏.母性光辉下的成长记忆——《阿长与〈山海经〉》细读[J].语文知识 . 2016 (13) : 19-20</a>"], source: "《朝花夕拾》", category: "流动者", spaceType: "virtual", location: "故乡", spaceLiterature: ["1.魏庆培：论《朝花夕拾》的时间与空间[J].鲁迅研究月刊 . 2018 (05) : 25-32","2.李欣宇：空间视域下的《朝花夕拾》[J].青年文学家 . 2021 (06) : 16-17","3.刘传霞：被建构的女性 ——中国现代文学社会性别研究[D].山东师范大学.2006（09）"] },
+        "杨二嫂": { img: "https://s41.ax1x.com/2026/03/09/peiooyd.png", intro: "被异化的小市民。杨二嫂从“豆腐西施”到“细脚伶仃的圆规”。以前她是被消费的“风景”，“终日坐着”，是吸引顾客的活招牌（“因为伊，这豆腐店的买卖非常好”）。她的价值附着于其外貌和店铺。而二十年后，她变成“凸颧骨，薄嘴唇”“细脚伶仃的圆规”。这个经典的比喻不仅描绘了她尖酸刻薄、极具攻击性的体态，更象征了她精神的畸形与工具化——像圆规一样刻薄、算计，围绕“利益”这个圆心打转，失去了人的丰满与温度。\n\n现在的她言语的讹诈与物质的窃取。首先她先声夺人，道德绑架。 以“我还抱过你咧！”开场，试图建立一种虚构的、不容反驳的恩情关系，为后续索取奠定道德基础。同时尖刻挖苦，施加压力。 用“贵人眼高”“放了道台”“三房姨太太”“八抬大轿”等完全是臆想的富贵场景来讽刺“我”，目的不是陈述事实，而是制造一种“你阔了就必须补偿我”的舆论压力和情感讹诈。赤裸索取，顺手牵羊。 直接讨要“破烂木器”，被婉拒后，立刻将对话定性为有钱人的吝啬（“愈有钱，便愈是一毫不肯放松”），并顺手偷走了“我母亲的一副手套”。这一“索要-窃取”的行为链，是她生存哲学的完整实践：能用情面压榨就用情面，情面无效就直接窃取。\n\n她的生存存在一种小市民哲学，她拥有极度的物质主义与生存焦虑，她的世界一切都可兑换为物质利益。亲情、乡谊、面子，都是可以用来换取“破烂木器”的筹码。这背后是底层小市民在动荡社会中极度的生存不安全感与物质匮乏感。其次是严重的社会认知错位与臆想，她对“我”（一个在外漂泊的知识分子）的想象，完全基于她所理解的、僵化的封建官僚成功模式（道台、姨太太、大轿），这暴露了她与外部真实世界的巨大隔膜，思维停留在前一个时代。最后是精明算计下的可悲与可厌，她精明、泼辣、毫不掩饰自己的贪婪，具有一种扭曲的生命力，与闰土“恭敬”的麻木不同，她是主动进击的麻木，她的令人不适，但她的可厌恰恰是她被生活压榨、异化的结果。她偷手套的猥琐，与她年轻时“豆腐西施”的风光，形成残酷对比，展现了时间与社会如何将一个“被观赏者”扭曲为一个“掠夺者”。\n\n与此同时，杨二嫂构成了“我”“故乡梦”破碎的其中一极：\n杨二嫂则代表了物质与道德关系的崩坏。她的出现，让“回乡”不仅充满感伤，更充满了被骚扰、被算计的狼狈与荒诞。她像一面哈哈镜，照出了“我”与故乡之间所有温情纽带都已失效。记忆里美好的“故乡”，在现实里只剩下一个想从你身上刮点东西的“圆规”。她是“故乡”市侩、鄙俗、冰冷一面的肉身化体现。", journal: [“<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtiVjeK1l-u1tfN_-iDqiWZLQvj-3K6gzhltRx7Cx2KdOy2mOViQjmwU3fm41j499nqCaFtoDeSeaTk9vA1jXcAZOEkEyGFQp2xh7QIjDdQXvbyvKA6uEjdDospxc7Hir7L2tV2CWAgQZTml2QMWDal79WPYRqE2o4=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[1]陈露.尖酸刻薄”杨二嫂”？——《故乡》人物杨二嫂之再解读[J].名作欣赏,2023,(36):60-62.</a>”,”<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqtJWPeVjzklJ9LG5u3NcuE_jWqajFncY_yiim3wDPQeO34N-n8rwhjF2ON6lwOqXrdr0H5mrPj2hypov7YF7QeGADeJuE4lfnto16YAwTZQ03UdfFgTjxQaoVZWBgttOZ4swcqV8eEpezvO2Ykje4Xw&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[2]张西爱.论《故乡》中豆腐西施杨二嫂的时代性[J].琼州学院学报,2007,(03):70-71.</a>”,”<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqun_e3d6bVrP2IbezUgHMg5eV_Az9DXtSBf4w6xJ5S32sOLjzpv2htP9fpxVjMz2WBDqHd0R6Xhdcd_SHio7e4pEQGsPDZJD3dUkvQCSpfg6jNg_zTIyQPoOPuXQe6tPF0uSvQIVOJLGWaA2sofhlnV&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[3]孙稳重,王晓枫.鲁迅《故乡》中杨二嫂人物形象的塑造[J].山西大学师范学院学报(哲学社会科学版),1998,(01):47-48.</a>”,”<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqs7MhEa-rqsHKo3suEPuU0cnw-QtNNyWTCGNygJNnsoS_SU0JOJJYhUjQKLk1I2XqaoPBYtFbq1EZuI4hbLtzUVW2tIeopahj6zSVhHtVGPbQjF2Nv36XglE-N66rHTA7R-y7nj6yirXMnrB-nbeajH&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[4]张铁荣.浅谈《故乡》中杨二嫂的形象——兼与汤国梁同志商榷[J].山东师院学报(哲学社会科学版),1979,(06):36-39.</a>”,”<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mquX0gParLvvI_7iEZMDdtYT8vLJpWQzp2lg9WZKLmRl9QtdprNrLS9HUh3ZilpZ8Xo5sVgsg5RJJykr6kZ0TV7BoD4do1ccr78mT1eAkOeW3BRR-azt6vvD2Fz-tqa1-gUjrlKWssP8wXya78Yzqk2m&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[5]李明军.文化蒙蔽:鲁迅小说中女性形象的精神桎梏[J].鲁迅研究月刊 . 2004 (07) : 75-80</a>”,”<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqsXYlF1cKBM2geHi2azYaiOpVd77s5oUt4fiLpZXVDWzufE2Nlt8D5ICcimIUlpGblJvnFOf1pqctF3QcW941YflZt3gnHngm-QNSE3mn9Vz7zKE3mVpVTgreHiu9pREPhG94qgYBgI284mtUn4QiUhloYUo1_gcy4=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[6]陈景.杨二嫂:童年故乡的靓丽风景——鲁迅《故乡》杨二嫂形象的教学解读[J].福建基础教育研究 . 2017 (02) : 143-144</a>”,”<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqvCo9r9WIczihuTdLZE5zFDJhjaXNeQWpJgvcdqLRm6HyBpmnVGn8Tmn2htLfQ8yuvEe9Lx2y_CJp7DLI0nz995NEvkrHspTxQtFMgLARHmzu_-_bd-n-peunqpCi8J4emILeq_oTAPmBnZKASwfvkFURk838tG944=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[7]张中法.沿批判性思维之波,讨小说文本细读之源——以探讨《故乡》中的”碗碟风波”为例[J].语文教学通讯 . 2019 (08) : 64-66</a>”,”<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqs8AWomLlduvzd3PWF3eAiDn_3nGCKdwxnFTqmcbdcGiCJeUX9LU29fu2mjlbfLNAKnwa6PKzbSSLh7xum0FDavlYYs1Bod2ZIhm8uEbaQmFzT-LqjDtH3BNc5VgQjrCoAHev3ZCB5nOuZF3C2TeNkKypple0py9po=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[8]胡峰.乡土身份认同的失败之旅——鲁迅《故乡》重释[J].山东师范大学学报(社会科学版) . 2021 ,66 (05) : 28-38</a>”,”<a href='https://kns.cnki.net/kcms2/article/abstract?v=y_SiIdm5mqt7Dtj90DQCUtFI8TNpBWkbS2fSZxZbX2FR9IJBSd8pkp5IcXR2lj326lyobcbaotiVVzqgqAxLwt1BOg37tPkO8dZf6DMOnmgAbYwF1fQWy3q9tNeB2-9jpPXstmp6Zdmjrh42UNNqKDt9bTS0GVnjPCj09hnxDZU=&uniplatform=NZKPT' target='_blank' rel='noopener noreferrer'>[9]刘静.”豆腐西施”的扭曲灵魂——鲁迅小说《故乡》杨二嫂的艺术形象分析[J].考试周刊 . 2011 (58) : 24-25</a>”], source: "《故乡》", category: "禁锢者", spaceType: "virtual", location: "故乡", spaceLiterature: ["1.郭金玉：鲁迅小说叙事空间研究[D].东北师范大学.2011（02）"] },
+        "子君": { img: "https://s41.ax1x.com/2026/03/09/peiobwt.png", intro: "涓生叙述中的子君是一个“退化”的谱系，在涓生的追忆中，子君经历了一个清晰的“堕落”轨迹：\n启蒙的偶像（“我是我自己的”）：初期她是勇敢的象征，说出振聋发聩的话，无视世俗眼光，眼中闪烁着“稚气的好奇的光泽”。她是涓生启蒙成功的证明，是他反抗旧世界的精神同盟与战利品。\n庸常的伴侣（“终日汗流满面”）：同居后，她迅速陷入家务（做饭、饲鸡、养狗），变得“忙”且“怯弱”。在涓生看来，她抛弃了思想追求，与官太太暗斗，成为他追求“新路”的拖累与障碍。她的形象从“苍白的圆脸”变为“胖了起来”、“手粗糙起来”。\n被弃的累赘（“无畏的子君也变了色”）：失业打击后，她的“勇气都失掉了”。涓生将经济困窘带来的焦虑，转化为对子君“浅薄”、“只知捶着衣角”的道德批判。最终，他以“真实”（“我已经不爱你了”）为武器，完成了对她的精神驱逐。\n\n隐藏视角下的子君则是结构性压迫的承受者。子君的“变化”实则是一个无经济与社会基础的新女性，在现实重力下的必然坠落。她脱离父家，便失去经济来源。她卖掉“唯一的金戒指和耳环”作为家庭股金，但这微薄贡献很快耗尽。她没有职业，家庭成为她唯一“事业”。涓生视家务为“功业”的讽刺，实则是她唯一可掌控的领域。她的“操劳”不是退化，而是在既定结构下唯一能做出的贡献与抵抗。\n她与家族决裂（叔子不再认她），同时被抛入一个充满“探索、讥笑”的陌生社区。她的社会关系网被彻底剥离，涓生成为她与世界的唯一纽带。她的“捶着衣角”，非因软弱，而是绝对的孤立无援。\n涓生爱的，是作为启蒙符号的子君，而非具体的、会陷入日常的她。当符号落入现实，爱便消逝。他享受她带来的家庭温暖（“食品却比在会馆里时好得多了”），却鄙夷创造这温暖的劳作。子君的爱是全身心的（能背诵他求婚的每句话），而涓生的爱是有条件、建立在精神优越感之上的。\n油鸡和阿随不仅是子君的情感寄托，更是她被物化命运的镜像。它们被饲养、被食用、被抛弃的过程，完美隐喻了子君在涓生价值体系中的位置：从珍贵的观赏品（无畏的新女性），到实用的生产者（操持家务），再到无用的累赘（需要被“放掉”）。她对阿随的悲愤，何尝不是对自身命运的预感。子君的核心悲剧是“觉醒后的无路可走”。", journal: ["[1]贾振勇.娜拉出走:现代性的女性神话[J].鲁迅研究月刊,2001","[2]李今.析《伤逝》的反讽性质[J].文学评论,2010","[3]姜异新.爱情的诚与谩——《伤逝》细读[J].文艺争鸣,2024"], source: "《伤逝》", category: "流动者", spaceType: "virtual", location: "吉兆胡同", spaceLiterature: ["1.郭金玉：鲁迅小说叙事空间研究[D].东北师范大学.2011（02）","2.唐海霞：鲁迅小说中的空间叙事研究[D].大连理工大学.2018（04）","3.李茜烨：绍兴会馆与鲁迅小说《伤逝》的空间书写[J].华中学术 . 2025 ,17 (02) : 122-132","4.刘传霞：被建构的女性 ——中国现代文学社会性别研究[D].山东师范大学.2006（09）","5.王萍.中国现代小说文体的空间叙事研究[D].兰州大学.2019（04）","6.叶世祥：鲁迅小说的空间形式[J].鲁迅研究月刊 . 1997 (11)","7.国家玮：“空间”的现代性:论《伤逝》的第一人称叙事[J].鲁迅研究月刊 . 2015 (05) : 4-22","8.励盼儿：从“公共空间”到“私人领域”——鲁迅小说《伤逝》解读[J].文教资料 . 2023 (23) : 4-7","9.刘红英：鲁迅小说《伤逝》中的三重空间与性别反讽[J].鲁迅研究月刊 . 2021 (07) : 14-20+23","10.熊欣璇：都市空间中的都市心理症候——对鲁迅小说《伤逝》的再解读[J].名作欣赏 . 2018 (15) : 33-35"] },
+        "嫦娥": { img: "https://s41.ax1x.com/2026/03/10/peFQRMV.png", intro: "嫦娥是被现实消磨了神性的世俗妻子与利己的逃离者。她曾是神话中的仙子，如今却困于日常琐碎，对英雄末路的丈夫后羿只有嫌弃与不耐（抱怨“整天吃乌鸦炸酱面”）。她的“飞升”并非浪漫传说，而是对贫困与庸常生活的自私背弃——偷服仙药，独自奔向月宫的安逸。鲁迅借此解构神话，将嫦娥塑造为一个受困于物质、缺乏共情力的女性，其逃离既是对后羿“无用”的尖锐嘲讽，也折射出凡俗生活中理想消散后，亲密关系面临的冰冷现实。", journal: ["[1]王思萌.《奔月》中后羿与嫦娥形象分析[J].今古文创,2021","[2]容苑.从《奔月》中的嫦娥形象探索时代女性的命运[J].阿坝师范学院学报,2019"], source: "《奔月》", category: "流动者", spaceType: "virtual", location: "后羿居所", spaceLiterature: ["1.郭金玉：鲁迅小说叙事空间研究[D].东北师范大学.2011（02）","2.唐海霞：鲁迅小说中的空间叙事研究[D].大连理工大学.2018（04）","3.叶世祥：鲁迅小说的空间形式[J].鲁迅研究月刊 . 1997 (11)","4.何红峰：鲁迅《故事新编》中的空间意象互文[J].文学教育(上) . 2023 (06) : 11-13"] },
+        "鲁瑞": { img: "https://s41.ax1x.com/2026/03/10/peFtHKA.png", intro: "鲁迅的母亲鲁瑞（1857—1943），会稽东北乡安桥头人。她也是读书人家的女儿，父亲鲁希曾（号晴轩），中过举人，做过户部主事。鲁迅三岁那年，鲁西曾就去世了。鲁迅在自叙传略里说，他的“母亲姓鲁，乡下人。她以自修得到能够看书的学力”。母亲在鲁家家道中落之后，虽然不舍鲁迅的离去，但也尽力托举孩子。母亲还是哭泣了，一是鲁迅选择的道路是「将灵魂卖给鬼子」的走投无路，二是见不到自己的孩子。", journal: ["[1]徐保卫.鲁迅心灵中母亲的形象:从新台门到安桥头[J].汉中师院学报,1992","[2]张显凤.母亲的缺席与隐秘的伤痛——再读《朝花夕拾》[J].鲁迅研究月刊,2013"], source: "历史人物/散文", category: "禁锢者", spaceType: "real", location: "绍兴", spaceLiterature: ["1.张娟：以空间为中心的文学史的生成——从《八道湾十一号》谈起[J].鲁迅研究月刊 . 2017 (11) : 90-96+41"] },
+        "许广平": { img: "https://s41.ax1x.com/2026/03/10/peFNeGF.png", intro: "许广平（1898—1968），笔名景宋，广东番禺人，现代作家、社会活动家，鲁迅的伴侣与战友。早年投身五四运动，后考入北京女子高等师范学校，成为鲁迅学生，积极参与学生运动。1925 年起与鲁迅通信相恋，二人通信结集为《两地书》。1927 年后与鲁迅在上海共同生活，全力协助鲁迅文稿整理、编辑与对敌斗争。鲁迅逝世后，她坚守文化阵地，冒险保护手稿与遗物，主持编纂《鲁迅全集》。新中国成立后，历任政务院副秘书长、全国妇联副主席、民进中央副主席等职，毕生致力于鲁迅遗产保护与妇女、民主事业，是兼具独立人格与家国情怀的现代女性。", journal: ["[1]杭苏红.无根之“群”:民国新女性的精神困境[J].社会学研究,2015","[2]王彬彬.许广平在改写鲁迅中的作用与苦衷[J].文艺争鸣,2001","[3]付祥喜.中国现代作家书信的“公”与“私”[J].文学评论,2022"], source: "历史人物/书信", category: "反叛者", spaceType: "real", location: "上海", spaceLiterature: [] },
+        "朱安": { img: "https://s41.ax1x.com/2026/03/10/peFNQq1.png", intro: "朱安（1878—1947），浙江绍兴人，鲁迅的原配夫人，是封建包办婚姻下的旧式女性。她缠足、不识字，恪守传统妇德，1906 年奉母命与鲁迅结婚，二人精神隔阂极深，始终无共同生活。婚后她长期侍奉鲁迅母亲，操持家务，随周家迁居北京，默默守着名义上的婚姻。鲁迅南下与许广平定居后，她仍留在北平照料婆婆。鲁迅去世后，她生活清贫，却尽力守护鲁迅文稿遗物，1947 年在北平孤寂离世，终年 69 岁。她一生温顺隐忍，是旧时代女性悲剧的缩影，也为留存鲁迅文献尽到心力。", journal: ["[1]裘士雄.浅论鲁迅对中国传统婚姻的“妥协”与抗争[J].绍兴师专学报,1991","[2]孔慧怡.字里行间:朱安的一生[J].鲁迅研究月刊,2002"], source: "历史人物/散文", category: "禁锢者", spaceType: "real", location: "绍兴", spaceLiterature: ["1.张娟：以空间为中心的文学史的生成——从《八道湾十一号》谈起[J].鲁迅研究月刊 . 2017 (11) : 90-96+41"] },
+        "刘和珍": { img: "https://pic1.imgdb.cn/item/69aff69e6738cb8aa1296ecb.png", intro: "刘和珍(1904—1926)江西南昌人，北京女子师范大学英文系学生。是女师大学生自治会职员六人之一。\n她是学生运动的中坚与“三一八”惨案的罹难者。在鲁迅笔下，她最鲜明的特征是 “始终微笑着，态度很温和” ，这与其“干练坚决，百折不回”的斗争者形象形成强烈反差。她不为强权所屈（反抗杨荫榆），心系家国（为母校前途黯然泣下），最终在请愿时“欣然前往”并喋血府门。她的形象，是新女性觉醒与牺牲的化身——既有知识青年的理性与坚韧，又不失人性的温煦。鲁迅通过对她“微笑”与“喋血”的对比，控诉暴政之残酷，更凸显了中国女性临难从容的勇毅。", journal: ["[1]孙绍振.杂文式抒情:在曲折的逻辑中深化[J].语文建设,2010","[2]刘高峰.“点”与“线”的表现艺术[J].名作欣赏,2005","[3]汤天勇.关于“三一八”事件的三种写法[J].中学语文教学,2022"], source: "历史人物/散文", category: "反叛者", spaceType: "real", location: "北京", spaceLiterature: [] },
+        "萧红": { img: "https://pic1.imgdb.cn/item/69aff6d76738cb8aa1296ef9.png", intro: "萧红（1911—1942），原名张乃莹，黑龙江呼兰人，中国现代著名女作家，被誉为 “30 年代文学洛神”。1934 年她抵达上海后，主动致信鲁迅，很快得到接见与扶持，成为鲁迅晚年最亲近的青年作家之一。鲁迅为其 《生死场》作序并助力出版 ，助她一举成名，还在生活与创作上多方关照。萧红常出入鲁迅家中，与鲁迅夫妇情谊深厚，后写下《回忆鲁迅先生》，以细腻笔触留存鲁迅日常形象。她一生颠沛，代表作有《生死场》《呼兰河传》，文风独特、悲悯深沉，是东北作家群的杰出代表。", journal: ["[1]季红真.鲁迅序言对《生死场》的经典定位之后[J].中国现代文学研究丛刊,2016","[2]秦林芳.鲁迅小说传统与萧红的小说创作[J].鲁迅研究月刊,2000","[3]林敏洁.鲁迅与萧红交往考察[J].新文学史料,2001"], source: "历史人物/散文", category: "反叛者", spaceType: "real", location: "上海", spaceLiterature: [] },
+        "杨荫榆": { img: "https://pic1.imgdb.cn/item/69aff6f86738cb8aa1296f1a.png", intro: "杨荫榆（1884-1938）是中国近代史上一位充满争议的悲剧性人物，她作为国立北京女子师范大学的校长，却因封建家长式的管理方式引发“女师大风潮”，鲁迅在《女校长的男女的梦》中犀利批判其专制作风，并指责她依附北洋政府势力打压学生运动；然而这位校长在晚年展现了截然不同的气节：1937年苏州沦陷后，她多次斥责日军暴行并庇护当地妇女，最终于1938年元旦因拒绝合作遭日军诱至吴门桥枪杀抛尸。", journal: ["[1]陆建德.母亲、女校长、问罪学——关于杨荫榆事件的再思考[J].中国现代文学研究丛刊,2014","[2]娄岙菲.再论杨荫榆与女师大风潮[J].教育学报,2015"], source: "历史人物/书信", category: "反叛者", spaceType: "real", location: "北京", spaceLiterature: [] },
+        "凯绥·珂勒惠支": { img: "https://pic1.imgdb.cn/item/69aff7666738cb8aa1296f85.png", intro: "凯绥·珂勒惠支（Käthe Kollwitz，1867-1945）是20世纪德国最具影响力的表现主义版画家和雕塑家之一，也是鲁迅极为推崇并率先将其作品引入中国的艺术家。其艺术生涯深刻聚焦于无产阶级的苦难、母性的坚韧以及反战主题，早期代表作《织工的反抗》与《农民战争》系列以强烈的黑白对比和充满力量的线条，刻画了底层民众的挣扎与反抗；而两个儿子先后死于战争的命运悲剧使其后期作品更沉郁地转向对死亡、饥饿与战争创伤的刻画。1933年纳粹上台后，她因坚持进步立场被剥夺教授职务并遭展览禁令。鲁迅自1930年代起通过《北斗》等刊物系统推介其版画，尤以《牺牲》一作纪念左联烈士，盛赞她“以深广的慈母之爱，为一切被侮辱和损害者悲哀、抗议、愤怒、斗争”，并亲自编印《珂勒惠支版画选集》。", journal: ["[1]王锡荣.鲁迅与史沫特莱及《凯绥·珂勒惠支版画选集》[J].鲁迅研究月刊,2021","[2]孙郁.在表现主义风潮里[J].鲁迅研究月刊,2020","[3]崔云伟.现实的·审美的·哲学的[J].鲁迅研究月刊,2006"], source: "历史人物/书信", category: "反叛者", spaceType: "real", location: "柏林", spaceLiterature: [] },
+        "阿金": { img: "https://s41.ax1x.com/2026/03/10/peFQfqU.png", intro: "阿金是一位租界洋人家的帮佣，她相貌平凡却精力旺盛，常在深夜与女友们喧哗聚会，公开宣称“弗轧姘头，到上海来做啥呢”，并以“有人要”为荣。性格粗蛮任性伶牙俐齿，市侩精明。鲁迅坦言因其噪音扰乱了写作，更因她颠覆了自己“男权社会女性无力影响兴亡”的三十年信念——阿金以市井之力搅动四邻，暴露了底层女性在殖民环境中既挑战礼教束缚又深陷虚荣与利己的矛盾生存状态，最终鲁迅以“愿她不能算中国女性的标本”作结，既批判其劣根性，亦反思都市新女性精神的虚浮本质。", journal: ["[1]祝宇红.“王道”“天命”的历史批判和现实讽喻——重读鲁迅《采薇》[J].文艺争鸣,2016","[2]王童.“冷”而有力的女强人——论《故事新编》中的女性形象[J].上海鲁迅研究,2013"], source: "《采薇》", category: "反叛者", spaceType: "virtual", location: "首阳山", spaceLiterature: ["1.郑亦宁：“立人”思想影响下的市民书写——从鲁迅文本中的三类城市空间出发[J].“20世纪天津城市文化与中国现代性精神的发生”学术研讨会暨天津市写作学会2024年学术年会论文集","2.汤俊恺：鲁迅上海时期杂文中的人物形象研究[D].2026（02）"] }
+    };
+
+    const charactersList = Object.keys(characterData);
+    const locationMapping = {
+        "虚拟地点": { "古轩亭口": ["夏四奶奶"], "鲁镇": ["祥林嫂"], "庞庄": ["爱姑"], "故乡": ["单四嫂子","阿长","杨二嫂"], "吉兆胡同": ["子君"], "后羿居所": ["嫦娥"], "首阳山": ["夏四奶奶","阿金"] },
+        "现实地点": { "上海": ["许广平","萧红"], "绍兴": ["鲁瑞","朱安"], "北京": ["刘和珍","杨荫榆"], "柏林": ["凯绥·珂勒惠支"] }
+    };
+    const genderCategories = { "禁锢者": ["祥林嫂","单四嫂子","夏四奶奶","朱安","鲁瑞","杨二嫂"], "流动者": ["爱姑","子君","嫦娥","阿长"], "反叛者": ["阿金"], "现实中的女性": ["刘和珍","许广平","萧红","杨荫榆","凯绥·珂勒惠支"] };
+
+    // 自我介绍数据
+    const selfIntroData = [
+        { name: "刘和珍", img: "https://picui.ogmua.cn/s1/2026/04/08/69d6541adec89.webp", text: `我是刘和珍，北京女师大的学生。\n\n我从小不爱多说话，可心里头的事，我是明白的。在学校里，我和同学们一起读书，也一起争——争一个好好读书的地方。那时候女师大闹风潮，我们不愿被欺压，便不肯低头。\n\n一九二六年三月十八日，天气阴冷。我们几百个学生，到执政府门前清远，想要政府听见人民的声音。后来枪声响了，我倒下了，就在那里。\n\n倒下的时候，我是仰着头的。\n\n不知道后来有没有人记得我。我只是觉得，该做的事，做了就是了。` },
+        { name: "子君", img: "https://picui.ogmua.cn/s1/2026/04/08/69d6541ac4dae.webp", text: `我是子君。我曾说过一句话：“我是我自己的，他们谁也没有干涉我的权利。“说这话的时候，我以为自己是个新式的女子了。涓生告诉我许多新道理——关于易卜生，关于泰戈尔，关于个性解放。我都信了。\n\n后来我们住到一起，在吉兆胡同租了两间小屋。我把金戒指和耳环都卖了，添置家具。我以为这便是幸福了。可是日子久了，我渐渐只知道喂油鸡、喂阿随，做饭等他回来。那些书，那些新道理，不知什么时候被我忘了。涓生开始躲着我，整日待在图书馆里。最后他说：我已经不爱你了。\n\n我被父亲接回了老家。我不知道自己是怎么死的一一大约是病，大约是不想活。我只记得临去时想：若当初不曾听过那些新道理，是不是反倒活得容易些？可是这话，我也说不清了。` },
+        { name: "女娲", img: "https://free.boltp.com/2026/04/09/69d78123275b8.webp", text: `我是女娲。\n\n天地开辟的时候，我在这世上觉得无聊，便团了黄土，造出人来。起初，看着这些小东西在地上跑来跑去，倒也有趣。可后来，他们打仗，争什么帝位，把不周山撞断了——天裂了，地陷了，洪水从天上倒下来。\n\n我只好去补天。堆胡柴，炼五色石。那石头，一块一块，是我亲手填进缝隙里的。我去寻石头的时候，有人冷笑我，有人骂我，有人抢我的石头，还有人咬我的手。他们是我造的人，却这样待我。我没工夫理会，裂缝还开着，水还在流。\n\n石头熔了，补了天，我又用石灰填了地上的洪水。都做完了，我便躺下来，不再呼吸了。\n\n我造了他们，却教不会他们和平。如今你们还在读我的故事，想来这天地间，还是老样子` },
+        { name: "单四嫂子", img: "https://picui.ogmua.cn/s1/2026/04/08/69d6541a53061.webp", text: `我是单四嫂子，住在鲁镇，守寡三年了。\n\n丈夫去得早，就留下我和宝儿——我那三岁的儿子。我日夜纺纱，没日没夜地纺。手磨粗了，眼睛熬坏了，都不要紧。只要宝儿好好的，等我老了，他能养活自己，我就知足了。旁的念头，我没有。\n\n前些日子宝儿病了，烧得厉害。我抱着他去找何小仙，那大夫说的话，我一个字也听不懂。我回来求王九妈，求邻居们，可没人真心帮我。蓝皮阿五倒是殷勤，可他安的什么心，我不敢想。\n\n宝儿还是走了。我抱着他，觉着是梦，又醒不过来。他们帮我把宝儿放进棺材里，然后吃了我一顿饭，走了。屋里空空的，纺车还在，没有人了。\n\n我不知道明天是什么。宝儿说过的话，还在我耳朵里响着：“妈，我长大了也卖馄饨，卖许多钱——都给你。”我想着这句话，坐着，等着天亮。可是天亮了，又有什么用呢？` },
+    ];
+
+    // 本地回退回答（保持原有逻辑）
+    function generateLocalAnswer(q) {
+        const lower = q.toLowerCase();
+        if (lower.includes('祥林嫂')) return characterData['祥林嫂'].intro + " 相关文献丰富，属于“私人空间的禁锢者”。";
+        if (lower.includes('子君')) return characterData['子君'].intro + " 她体现了觉醒女性的流动与困境。";
+        if (lower.includes('许广平')) return characterData['许广平'].intro + " 作为反叛者，她突破了传统女性空间。";
+        if (lower.includes('禁锢者')) return "私人空间的禁锢者包括：祥林嫂、单四嫂子、夏四奶奶、朱安、鲁瑞、杨二嫂。她们被束缚于封建宗法空间。";
+        if (lower.includes('流动者')) return "私人与公共空间的流动者：爱姑、子君、嫦娥、阿长，尝试突破传统又面临局限。";
+        if (lower.includes('反叛者')) return "公共空间的反叛者：刘和珍、阿金、许广平、萧红、杨荫榆、珂勒惠支，进入公共领域并积极反抗。";
+        return "您可以询问具体人物（如祥林嫂、爱姑、许广平）或空间分类（禁锢者/流动者/反叛者），我会基于鲁迅女性研究数据库回答。";
+    }
+
+    // 调用 DeepSeek API
+    async function callDeepSeek(userMessage, apiKey) {
+        // 添加用户消息到历史
+        conversationHistory.push({ role: "user", content: userMessage });
+        const requestBody = {
+            model: "deepseek-chat",
+            messages: conversationHistory,
+            temperature: 0.7,
+            max_tokens: 800
+        };
+        const response = await fetch(DEEPSEEK_API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`
+            },
+            body: JSON.stringify(requestBody)
+        });
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`API请求失败: ${response.status} ${errorText}`);
+        }
+        const data = await response.json();
+        const assistantReply = data.choices[0].message.content;
+        // 保存助手回复到历史
+        conversationHistory.push({ role: "assistant", content: assistantReply });
+        return assistantReply;
+    }
+
+    // 更新API状态显示
+    function updateApiStatus() {
+        const statusSpan = document.getElementById('apiStatus');
+        if (DEEPSEEK_API_KEY && DEEPSEEK_API_KEY.startsWith('sk-')) {
+            statusSpan.innerText = '✅ API Key已设置';
+            statusSpan.style.color = '#2c6e2c';
+        } else {
+            statusSpan.innerText = '⚠️ 未设置API Key，使用本地知识库';
+            statusSpan.style.color = '#b85c00';
+        }
+    }
+
+    // 保存API Key
+    function saveApiKey() {
+        const input = document.getElementById('apiKeyInput');
+        const newKey = input.value.trim();
+        if (newKey) {
+            DEEPSEEK_API_KEY = newKey;
+            localStorage.setItem('deepseek_api_key', newKey);
+            updateApiStatus();
+            // 添加系统提示
+            const chatDiv = document.getElementById('chatContainer');
+            chatDiv.innerHTML += `<div class="chat-message ai"><div class="chat-bubble">✅ API Key已保存，现在将使用DeepSeek大模型回答您的问题。</div></div>`;
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        } else {
+            alert('请输入有效的API Key');
+        }
+    }
+
+    // 发送消息主函数
+    async function sendMessage() {
+        const input = document.getElementById('chatInput');
+        const msg = input.value.trim();
+        if (!msg) return;
+        const chatDiv = document.getElementById('chatContainer');
+        // 显示用户消息
+        chatDiv.innerHTML += `<div class="chat-message user"><div class="chat-bubble">${msg}</div></div>`;
+        input.value = '';
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+        // 显示加载中
+        const loadingId = 'loading-' + Date.now();
+        chatDiv.innerHTML += `<div class="chat-message ai" id="${loadingId}"><div class="chat-bubble">🤔 思考中...</div></div>`;
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+        try {
+            let reply = '';
+            if (DEEPSEEK_API_KEY && DEEPSEEK_API_KEY.startsWith('sk-')) {
+                try {
+                    reply = await callDeepSeek(msg, DEEPSEEK_API_KEY);
+                } catch (apiErr) {
+                    console.warn('DeepSeek API调用失败，回退本地知识库', apiErr);
+                    reply = generateLocalAnswer(msg) + '\n\n(注：当前使用本地知识库，请检查API Key或网络)';
+                }
+            } else {
+                reply = generateLocalAnswer(msg) + '\n\n(当前未配置DeepSeek API Key，如需智能对话请在上方设置)';
+            }
+            // 替换加载消息
+            const loadingDiv = document.getElementById(loadingId);
+            if (loadingDiv) {
+                loadingDiv.outerHTML = `<div class="chat-message ai"><div class="chat-bubble">${reply.replace(/\n/g, '<br>')}</div></div>`;
+            } else {
+                chatDiv.innerHTML += `<div class="chat-message ai"><div class="chat-bubble">${reply.replace(/\n/g, '<br>')}</div></div>`;
+            }
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        } catch (err) {
+            const loadingDiv = document.getElementById(loadingId);
+            if (loadingDiv) {
+                loadingDiv.outerHTML = `<div class="chat-message ai"><div class="chat-bubble">❌ 发生错误: ${err.message}，请稍后重试。</div></div>`;
+            }
+        }
+    }
+
+    // ---------- 原有UI功能（轮播、地图、性别空间、自我介绍等）----------
+    let carouselIdx = 0, autoInterval;
+    const updateCarousel = () => {
+        const name = charactersList[carouselIdx];
+        const ch = characterData[name];
+        const cardDiv = document.getElementById('singleCarouselCard');
+        cardDiv.innerHTML = `<img src="${ch.img}" class="carousel-avatar-lg" onerror="this.src='https://placehold.co/140x140?text=头像'"><div class="carousel-name-lg">${name}</div><div class="carousel-source-lg">${ch.source}</div><div style="font-size:0.85rem;color:#666;">点击查看详情</div>`;
+        cardDiv.onclick = () => showDetail(name);
+        document.querySelectorAll('.dot').forEach((dot,i)=>dot.classList.toggle('active',i===carouselIdx));
+    };
+    const nextSlide = () => { carouselIdx = (carouselIdx+1)%charactersList.length; updateCarousel(); };
+    const prevSlide = () => { carouselIdx = (carouselIdx-1+charactersList.length)%charactersList.length; updateCarousel(); };
+    function initCarousel(){
+        const dotsDiv = document.getElementById('carouselDots');
+        dotsDiv.innerHTML = '';
+        charactersList.forEach((_,idx)=>{ let d=document.createElement('div'); d.className='dot'+(idx===0?' active':''); d.onclick=()=>{ carouselIdx=idx; updateCarousel(); }; dotsDiv.appendChild(d); });
+        updateCarousel();
+        if(autoInterval) clearInterval(autoInterval);
+        autoInterval = setInterval(nextSlide,5000);
+        document.getElementById('carouselPrev').onclick=()=>{ prevSlide(); resetAuto(); };
+        document.getElementById('carouselNext').onclick=()=>{ nextSlide(); resetAuto(); };
+        function resetAuto(){ clearInterval(autoInterval); autoInterval=setInterval(nextSlide,5000); }
+    }
+    function buildPhysicalMaps(){
+        const container = document.getElementById('physicalMapContainer');
+        container.innerHTML = `
+            <div class="map-container" id="virtualMap" style="background-image:url('https://pic1.imgdb.cn/item/69aff99f6738cb8aa129715e.png')"><div class="map-title">📖 虚拟人物地图</div></div>
+            <div class="map-container" id="realMap" style="background-image:url('https://pic1.imgdb.cn/item/69aff9f96738cb8aa12971b3.png')"><div class="map-title">🌍 现实人物地图</div></div>
+        `;
+        const vMap = document.getElementById('virtualMap'), rMap = document.getElementById('realMap');
+        const virtualMarkers = [{name:"古轩亭口",left:"21%",top:"35%"},{name:"鲁镇",left:"30%",top:"57%"},{name:"庞庄",left:"43.5%",top:"35%"},{name:"吉兆胡同",left:"62.5%",top:"30%"},{name:"后羿居所",left:"79%",top:"32%"},{name:"故乡",left:"47%",top:"50%"},{name:"首阳山",left:"72%",top:"51%"}];
+        const realMarkers = [{name:"上海",left:"32%",top:"59%"},{name:"绍兴",left:"44.5%",top:"35%"},{name:"北京",left:"65%",top:"63%"},{name:"柏林",left:"88%",top:"36%"}];
+        virtualMarkers.forEach(m=>addMarkerToMap(vMap,m,"虚拟地点"));
+        realMarkers.forEach(m=>addMarkerToMap(rMap,m,"现实地点"));
+    }
+    function addMarkerToMap(map,marker,mapType){
+        const markerDiv = document.createElement('div'); markerDiv.className='map-marker'; markerDiv.style.left=marker.left; markerDiv.style.top=marker.top;
+        const popup = document.createElement('div'); popup.className='map-popup';
+        const locChars = locationMapping[mapType][marker.name] || [];
+        popup.innerHTML = `<div style="font-weight:600;margin-bottom:8px;">${marker.name}</div>
+            <div style="font-size:14px;color:#5C5C5C;padding-bottom:8px;margin-bottom:8px;border-bottom:0.5px solid #e9e9ef;">
+                此处为鲁迅笔下${mapType==='虚拟地点'?'虚拟':'现实'}人物活动的重要空间，承载着特定的社会关系与性别权力结构。
+            </div>`+locChars.map(c=>`<div class="popup-item" data-name="${c}">${c} —— ${characterData[c]?.source||'作品'}</div>`).join('');
+        markerDiv.onclick=(e)=>{ e.stopPropagation(); document.querySelectorAll('.map-popup').forEach(p=>p.classList.remove('show')); popup.classList.add('show'); const rect=markerDiv.getBoundingClientRect(),mapRect=map.getBoundingClientRect(); popup.style.left=`${rect.left-mapRect.left+20}px`; popup.style.top=`${rect.top-mapRect.top-40}px`; };
+        popup.querySelectorAll('.popup-item').forEach(el=>{ el.addEventListener('click',()=>showDetail(el.dataset.name)); });
+        map.appendChild(markerDiv); map.appendChild(popup);
+    }
+    function buildGenderView(){
+        const grid = document.getElementById('genderGrid'); grid.innerHTML='';
+        const categories = [
+            { key: '禁锢者', title: '私人空间的禁锢者' },
+            { key: '流动者', title: '私人与公共空间的流动者' },
+            { key: '反叛者', title: '公共空间的反叛者' },
+            { key: '现实中的女性', title: '现实中的女性' }
+        ];
+        categories.forEach(cat => {
+            const card = document.createElement('div'); card.className='gender-card';
+            card.innerHTML = `<div class="gender-card-title">${cat.title}</div><div class="gender-grid" id="grid-${cat.key}"></div>`;
+            const gridInner = card.querySelector(`.gender-grid`);
+            (genderCategories[cat.key] || []).forEach(name => {
+                const ch = characterData[name];
+                const item = document.createElement('div'); item.className='gender-item';
+                item.innerHTML = `<img src="${ch.img}" class="gender-avatar" onerror="this.src='https://placehold.co/70x70'"><div>${name}</div>`;
+                item.onclick = () => showDetail(name);
+                gridInner.appendChild(item);
+            });
+            grid.appendChild(card);
+        });
+    }
+    function showDetail(name){
+        const ch = characterData[name];
+        let spaceLiteratureHtml = '';
+        if (ch.spaceLiterature && ch.spaceLiterature.length > 0) {
+            spaceLiteratureHtml = ch.spaceLiterature.map(lit => `<div style="padding:6px 0;border-bottom:0.5px solid #ddd; font-size:0.9rem;">${lit}</div>`).join('');
+        } else {
+            spaceLiteratureHtml = '<div style="color:#aaa; font-style:italic; padding:8px 0;">暂无空间叙事文献</div>';
+        }
+        const detailDiv = document.getElementById('detailContent');
+        detailDiv.innerHTML = `
+            <div style="text-align:center;margin-bottom:24px;"><img src="${ch.img}" style="width:120px;height:120px;border-radius:60px;object-fit:cover;"><h2 style="font-size:2rem">${name}</h2><p style="color:#666">${ch.source}</p></div>
+            <div style="background:rgba(0,0,0,0.02);border-radius:32px;padding:24px;margin:16px 0"><h3>📖 人物简介</h3><p style="line-height:1.6">${ch.intro}</p></div>
+            <div style="background:rgba(0,0,0,0.02);border-radius:32px;padding:24px;margin:16px 0"><h3>📖 原文</h3><p style="line-height:1.6">待补充</p></div>
+            <div><h3>📚 学术文献（知网/期刊）</h3>${ch.journal.map(j=>`<div style="padding:6px 0;border-bottom:0.5px solid #ddd">${j}</div>`).join('')}</div>
+            <div style="margin-top:20px"><h3>📍 空间叙事文献</h3>${spaceLiteratureHtml}</div>
+        `;
+        switchView('detail');
+        window.scrollTo(0,0);
+    }
+    function buildHomeSelfIntroGrid() {
+        const container = document.getElementById('homeSelfIntroContainer');
+        if (!container) return;
+        container.innerHTML = '';
+        selfIntroData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'self-intro-card-item';
+            card.style.animationDelay = `${index * 0.2}s`;
+            card.innerHTML = `<img src="${item.img}" alt="${item.name}" onerror="this.src='https://placehold.co/280x280?text=${item.name}'"><div class="self-intro-card-name">${item.name}</div>`;
+            card.onclick = () => showSelfIntroDetail(item.name);
+            container.appendChild(card);
+        });
+    }
+    function showSelfIntroDetail(name) {
+        const item = selfIntroData.find(d => d.name === name);
+        if (!item) return;
+        const container = document.getElementById('selfIntroDetailContainer');
+        const isNvwa = name === '女娲';
+        const paragraphs = item.text.split('\n\n').filter(p => p.trim() !== '');
+        const contentHtml = paragraphs.map(p => `<p>${p.trim()}</p>`).join('');
+        const buttonsHtml = isNvwa
+            ? `<button class="self-intro-detail-btn secondary" onclick="switchView('home')">返回</button>`
+            : `<button class="self-intro-detail-btn" onclick="showDetail('${name}')">了解更多</button>
+               <button class="self-intro-detail-btn secondary" onclick="switchView('home')">返回</button>`;
+        container.innerHTML = `
+            <div class="self-intro-detail-wrapper">
+                <div class="self-intro-detail-header">
+                    <div class="self-intro-detail-left">
+                        <img src="${item.img}" alt="${name}" class="self-intro-detail-img" onerror="this.src='https://placehold.co/140x140?text=${name}'">
+                    </div>
+                    <div class="self-intro-detail-right">
+                        <div class="self-intro-detail-text">
+                            <div class="self-intro-detail-content">${contentHtml}</div>
+                        </div>
+                        <div class="self-intro-detail-buttons">
+                            ${buttonsHtml}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        switchView('selfIntroDetail');
+        window.scrollTo(0,0);
+    }
+    let currentView='home', prevView='home';
+    function switchView(view){
+        prevView = currentView; currentView = view;
+        document.querySelectorAll('.view-section').forEach(sec=>sec.classList.remove('active'));
+        if(view==='home') document.getElementById('homeView').classList.add('active');
+        if(view==='physical') document.getElementById('physicalView').classList.add('active');
+        if(view==='gender') document.getElementById('genderView').classList.add('active');
+        if(view==='detail') document.getElementById('detailView').classList.add('active');
+        if(view==='selfIntroDetail') document.getElementById('selfIntroDetailView').classList.add('active');
+        if(view==='spaceTheory') document.getElementById('spaceTheoryView').classList.add('active');
+        if(view==='selfIntro') {
+            document.getElementById('homeView').classList.add('active');
+            // 滚动到自我介绍板块
+            setTimeout(() => {
+                const introSection = document.querySelector('.self-intro-section');
+                if (introSection) {
+                    introSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
+        const btns = document.querySelectorAll('.nav-btn');
+        btns.forEach(btn=>{
+            btn.classList.remove('active');
+            if((view==='home'&&btn.dataset.view==='home')||
+               (view==='spaceTheory'&&btn.dataset.view==='spaceTheory')||
+               (view==='selfIntro'&&btn.dataset.view==='selfIntro'))
+                btn.classList.add('active');
+        });
+    }
+    document.querySelectorAll('.nav-btn[data-view]').forEach(btn=>{ btn.addEventListener('click',()=>{ switchView(btn.dataset.view); }); });
+    document.getElementById('detailBack').addEventListener('click',()=>{ switchView(prevView); if(prevView==='physical') buildPhysicalMaps(); if(prevView==='gender') buildGenderView(); });
+
+    // AI模态框相关
+    const modal=document.getElementById('modalOverlay'), navAiBtn=document.getElementById('navAiBtn'), closeModal=document.getElementById('modalClose');
+    navAiBtn.onclick=()=>modal.style.display='flex';
+    closeModal.onclick=()=>modal.style.display='none';
+    modal.onclick=(e)=>{if(e.target===modal)modal.style.display='none';};
+    document.getElementById('chatSend').onclick=sendMessage;
+    document.getElementById('chatInput').addEventListener('keypress',e=>{if(e.key==='Enter') sendMessage();});
+    document.getElementById('saveApiKeyBtn').onclick = saveApiKey;
+    // 初始化时加载已保存的key到输入框
+    if (DEEPSEEK_API_KEY) {
+        document.getElementById('apiKeyInput').value = DEEPSEEK_API_KEY;
+    }
+    updateApiStatus();
+
+    // 启动所有
+    setTimeout(()=>document.getElementById('splash').classList.add('hidden'),1250);
+    initCarousel();
+    buildPhysicalMaps();
+    buildGenderView();
+    buildHomeSelfIntroGrid();
+</script>
+</body>
+</html>

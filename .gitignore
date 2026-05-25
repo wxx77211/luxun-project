@@ -1,0 +1,17 @@
+# System files
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# Office temp files
+~$*.doc*
+~$*.xls*
+~$*.ppt*
+~$*.tmp
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Git
+.git/
